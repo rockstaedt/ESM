@@ -16,7 +16,7 @@ emission        = [0,.399,.337,.201]
 CO2Cost    = 21.71
 
 #Filling the DataFrame
-data = DataFrame(technology=technology,FuelCost=FuelCost,efficiency=𝜂,OM=varCost,emissionFactor=λ)
+data = DataFrame(technology=technology,FuelCost=FuelCost,efficiency=efficiency,OM=varCost,emissionFactor=emission)
 
 
 #Not necessary steps, just to get used to csv :)
