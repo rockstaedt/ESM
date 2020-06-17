@@ -1,0 +1,11 @@
+id,technology,zone,g_max,storage_capacity
+p1.z1,p1,z1,5,0
+p2.z1,p2,z1,15,0
+p1.z2,p1,z2,2,0
+p2.z2,p2,z2,10,0
+pv.z1,pv,z1,4,0
+pv.z2,pv,z2,2,0
+wind.z1,wind,z1,2,0
+wind.z2,wind,z2,1,0
+pumped_hydro.z2,pumped_hydro,z2,1,10
+battery.z1,battery,z1,0.5,2
