@@ -101,6 +101,7 @@ end
     sum(G[disp,t] for disp in intersect(map_zone2plist[z],P_DISP))
     + feed_in[z][t]
     - sum(D_stor[s,t] for s in intersect(map_zone2plist[z],P_S))
+    + sum(FLOW[zz,z,t]-FLOW[z,zz,t] for zz in Z)
     - CU[z,t]
     ==
     elec_demand[z][t])
