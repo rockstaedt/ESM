@@ -96,7 +96,8 @@ m = Model(Clp.Optimizer)
 end
 
 @objective(m, Min,
-    sum(mc[map_id2tech[disp]] * G[disp,t] for disp in P_DISP, t in T) );
+    sum(mc[map_id2tech[disp]] * G[disp,t] for disp in P_DISP, t in T) )
+
 @constraint(m, ElectricityBalance[z=Z, t=T],
     sum(G[disp,t] for disp in intersect(map_zone2plist[z],P_DISP))
     + feed_in[z][t]
@@ -163,10 +164,12 @@ gen_by_tech2 = combine(groupby(result_feedin, [:zone, :technology, :hour]),
 
 result_CU = DataFrame(CU, [:zone, :hour])
 result_CU[!,:technology] .= "curtailment"
+result_CU
 
 result_D = DataFrame(D_stor, [:id, :hour])
 insertcols!(result_D, 2, :zone => [map_id2z[id] for id in result_D[!,:id]])
 insertcols!(result_D, 3, :technology => [map_id2tech[id] for id in result_D[!,:id]])
+result_D
 
 demand_by_storage = combine(groupby(result_D, [:zone, :technology, :hour]),
     :value => sum => :value)
@@ -176,11 +179,31 @@ df_elec_demand = DataFrame((zone=k, technology="demand", hour=x, value=v[x])
 result_generation = vcat(gen_by_tech2, gen_by_tech)
 result_demand = vcat(demand_by_storage, result_CU, df_elec_demand)
 
+### Building dataframe for import and export
+result_F = value.(FLOW)
+# import
+importFlow = DataFrame(
+        (zone=z,
+        technology="import",
+        hour=t,
+        value = sum(result_F[zz,z,t] for zz in Z))
+    for z in Z, t in T)
 
+# export
+exportFlow = DataFrame(
+        (zone=z,
+        technology="export",
+        hour=t,
+        value = sum(result_F[z,zz,t] for zz in Z))
+    for z in Z, t in T)
+
+# vcat importFlow and exportFlow to generatio and demand
+result_generation = vcat(result_generation, importFlow)
+result_demand = vcat(result_demand, exportFlow)
 ### Plotting
 colordict = Dict("pv" => :yellow, "wind" => :lightblue, "pumped_hydro" => :darkblue,
     "battery" => :lightgrey, "p1" => :brown, "p2" => :grey, "demand" => :darkgrey,
-    "curtailment" => :red)
+    "curtailment" => :red, "import" => :purple, "export" => :orange)
 
 function plot_energybalance(df_gen::DataFrame, df_dem::DataFrame, z::AbstractString)
 
@@ -207,6 +230,6 @@ function plot_energybalance(df_gen::DataFrame, df_dem::DataFrame, z::AbstractStr
 end
 
 z1 = plot_energybalance(result_generation, result_demand, "z1")
-#savefig("results_z1.pdf")
+savefig("results_z1.pdf")
 z2 = plot_energybalance(result_generation, result_demand, "z2")
-#savefig("results_z2.pdf")
+savefig("results_z2.pdf")
