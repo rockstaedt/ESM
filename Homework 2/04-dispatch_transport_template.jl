@@ -203,7 +203,7 @@ result_demand = vcat(result_demand, exportFlow)
 ### Plotting
 colordict = Dict("pv" => :yellow, "wind" => :lightblue, "pumped_hydro" => :darkblue,
     "battery" => :lightgrey, "p1" => :brown, "p2" => :grey, "demand" => :darkgrey,
-    "curtailment" => :red, "import" => :purple, "export" => :orange)
+    "curtailment" => :red, "import" => :purple, "export" => :purple)
 
 function plot_energybalance(df_gen::DataFrame, df_dem::DataFrame, z::AbstractString)
 
