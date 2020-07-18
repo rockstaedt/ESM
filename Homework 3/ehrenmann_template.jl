@@ -48,6 +48,7 @@ b = Dict("N1" => 0.05,
          "N5" => -0.1,
          "N6" => -0.1)
 
+# from paper Chao and Peck (1998)
 lmax_dict = Dict("1-6" => 200, "2-5" => 250)
 
 Ehrenmann = Model(Ipopt.Optimizer)
@@ -56,6 +57,7 @@ Ehrenmann = Model(Ipopt.Optimizer)
     INJ[NODES]
 end
 
+# maximation of total welfare (demand function - supply function or consumer surplus + producer surplus)
 @objective(Ehrenmann, Max,
     sum((a[dem_node] + 0.5*b[dem_node]*Q[dem_node])*Q[dem_node] for dem_node in DEM_NODES)
     - sum((a[sup_node] + 0.5*b[sup_node]*Q[sup_node])*Q[sup_node] for sup_node in SUP_NODES)
