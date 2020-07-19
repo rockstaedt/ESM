@@ -8,6 +8,8 @@ NODES = ["N1", "N2", "N3", "N4", "N5", "N6"]
 SLACK = "N6"
 DEM_NODES = ["N3","N5","N6"]
 SUP_NODES = ["N1","N2","N4"]
+# zones
+ZONES = ["Z1", "Z2"]
 
 
 LINES = ["1-3","1-2","2-3","1-6","2-5","5-6","4-5","4-6"]
@@ -55,6 +57,7 @@ Ehrenmann = Model(Ipopt.Optimizer)
 @variables Ehrenmann begin
     Q[NODES] >= 0
     INJ[NODES]
+    P[ZONES]
 end
 
 # maximation of total welfare (demand function - supply function or consumer surplus + producer surplus)
@@ -76,9 +79,32 @@ end
 ## Implement LineMax and LineMin for lines "1-6" and "2-5"
 # Task 2 b)
 
+# consider only line 1-6 and 2-6, create new array INTERCONNECTORS
+INTERCONNECTORS = ["1-6", "2-5"]
+# upper limit
+@constraint(Ehrenmann, LineMax[interconnector=INTERCONNECTORS],
+            sum(ptdf[interconnector, node] * INJ[node] for node in NODES) <= lmax_dict[interconnector]
+            );
+# lower limit
+@constraint(Ehrenmann, LineMin[interconnector=INTERCONNECTORS],
+            sum(ptdf[interconnector, node] * INJ[node] for node in NODES) >= -lmax_dict[interconnector]
+            );
+
 # Implement Zonal Price Constraint:
 ## price_n for n in Price Zone == Price of that Price Zone
+# price_n = a_n + b_n * q_n for nodes in price zone
 # Task 2 c)
+
+# zone to node dictionary
+# maps a list of nodes to each zone
+z2n = Dict("Z1" => ["N1", "N2", "N3"], "Z2" => ["N4", "N5", "N6"])
+# maps the inverse of z2n as a dict: node to zone
+n2z = Dict(n => k for (k,v) in z2n for n in v)
+
+# add constraint for zonal prices
+@constraint(Ehrenmann, ZonalPrice[node=NODES],
+            a[node] + b[node]*Q[node] == P[n2z[node]]
+            );
 
 JuMP.optimize!(Ehrenmann)
 
