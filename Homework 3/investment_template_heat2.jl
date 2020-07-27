@@ -7,14 +7,10 @@ data_path = "data"
 time_series = CSV.read(joinpath(data_path, "timedata.csv"))
 # add heat time series
 insertcols!(time_series, :heat => CSV.read(joinpath(data_path, "timedata_with_heat.csv"))[!,:heat]|> Vector)
+
 tech_data = CSV.read(joinpath(data_path, "technologies.csv"))
-# read new tech
-tech_new_data = CSV.read(joinpath(data_path, "new_tech.csv"))
-# add column dispatchable
-insertcols!(tech_new_data, 2, :dispatchable => -1)
-# add new tech to tech data frame as row
-tech_data = vcat(tech_data, tech_new_data)
-tech_data
+# read heat tech data
+heat_tech_data = CSV.read(joinpath(data_path, "new_tech.csv"))
 
 
 
@@ -24,7 +20,7 @@ P = tech_data[:,:technology] |> Vector
 DISP = tech_data[tech_data[!,:dispatchable] .== 1 ,:technology]
 NONDISP = tech_data[tech_data[!,:dispatchable] .== 0 ,:technology]
 S = tech_data[tech_data[!,:investment_storage] .> 0 ,:technology]
-P2H = ["p2h"]
+H = ["p2h"]
 
 ### parameters ###
 annuity_factor(n,r) = r * (1+r)^n / (((1+r)^n)-1)
@@ -54,9 +50,27 @@ for row in eachrow(tech_data)
     vc[row.technology] = row.vc
 end
 
-demand = time_series[:,:demand] |> Array
+# add investment variables for heating techs
 
-### HEAT SECTION
+ic_generation_cap_h = Dict{String, Float64}()
+ic_storage_cap_h = Dict{String, Float64}()
+eff_in_h = Dict{String, Float64}()
+eff_out_h = Dict{String, Float64}()
+vc_h = Dict{String, Float64}()
+
+af_h = annuity_factor(heat_tech_data.lifetime[1], interest_rate)
+ic_generation_cap_h[heat_tech_data.technology[1]] = heat_tech_data.investment_generation[1] * af_h
+
+icsc = heat_tech_data.investment_storage[1] * af_h
+icsc > 0 && (ic_storage_cap_h[heat_tech_data.technology[1]] = icsc)
+
+heat_tech_data.storage_efficiency_in[1] > 0 && (eff_in_h[heat_tech_data.technology[1]] = heat_tech_data.storage_efficiency_in[1])
+heat_tech_data.storage_efficiency_out[1] > 0 && (eff_out_h[heat_tech_data.technology[1]] = heat_tech_data.storage_efficiency_out[1])
+
+vc_h[heat_tech_data.technology[1]] = heat_tech_data.vc[1]
+
+# demand
+demand = time_series[:,:demand] |> Array
 
 # add heat demand
 heat_demand = time_series[:,:heat] |> Array
@@ -76,14 +90,20 @@ m = Model(Clp.Optimizer)
     CU[T] >= 0
     D_stor[S,T] >= 0
     L_stor[S,T] >= 0
-
-    H[P2H, T] >= 0
-    H_P2H[P2H, T] >= 0
+    # heat
+    H_G[H, T] >= 0
+    H_P2H[H,T] >= 0
+    H_D_S[H,T] >= 0
+    H_L_S[H, T] >= 0
 
     # new variables for our investment model
     CAP_G[P] >= 0
     CAP_D[S] >= 0
     CAP_L[S] >= 0
+    # heat
+    CAP_H_G[H] >= 0
+    CAP_H_D[H] >= 0
+    CAP_H_L[H] >= 0
 end
 
 @objective(m, Min,
@@ -91,6 +111,9 @@ end
     + sum(ic_generation_cap[p] * CAP_G[p] for p in P)
     + sum(ic_charging_cap[s] * CAP_D[s] for s in S if haskey(ic_charging_cap, s))
     + sum(ic_storage_cap[s] * CAP_L[s] for s in S)
+    + sum(vc_h[h] * H_G[h,t] for h in H, t in T) * dispatch_scale
+    + sum(ic_generation_cap_h[h] * CAP_H_G[h] for h in H)
+    + sum(ic_storage_cap_h[h] * CAP_H_L[h] for h in H)
 )
 
 @expression(m, feed_in[ndisp=NONDISP, t=T], availability[ndisp][t]*CAP_G[ndisp])
@@ -99,7 +122,7 @@ end
     sum(G[disp,t] for disp in DISP)
     + sum(feed_in[ndisp,t] for ndisp in NONDISP)
     - sum(D_stor[s,t] for s in S)
-    - sum(H_P2H[p2h,t] for p2h in P2H)
+    - sum(H_P2H[h, t] for h in H)
     - CU[t]
     ==
     demand[t])
@@ -116,23 +139,33 @@ end
 @constraint(m, MaxLevel[s=S, t=T],
     L_stor[s,t] <= CAP_L[s])
 
+@constraint(m, MaxGenerationHeat[h=H, t=T],
+    H_G[h,t] <= CAP_H_G[h])
+
+@constraint(m, MaxLevelHeat[h=H, t=T],
+    H_L_S[h,t] <= CAP_H_L[h])
+
 @constraint(m, StorageLevel[s=S, t=T],
     L_stor[s, successor(T,t)]
     ==
     L_stor[s, t]
     + eff_in[s]*D_stor[s,t]
-    - (1/eff_out[s]) * G[s,t] )
+    - (1/eff_out[s]) * G[s,t])
+
+@constraint(m, StorageLevelHeat[h=H, t=T],
+    H_L_S[h, successor(T,t)]
+    ==
+    H_L_S[h, t]
+    + eff_in_h[h]*H_D_S[h,t]
+    - (1/eff_out_h[h]) * H_G[h,t])
 
 @constraint(m, HeatBalance[t=T],
-    sum(H[p2h, t] for p2h in P2H)
+    sum(H_G[h, t] for h in H)
     >=
     heat_demand[t])
 
-@constraint(m, Power2Heat[p2h=P2H, t=T],
-    H[p2h,t] == eff_in[p2h] * H_P2H[p2h, t])
-
-@constraint(m, MaxHeat[p2h=P2H, t=T],
-    H[p2h,t] <= CAP_G[p2h])
+@constraint(m, Power2Heat[h=H, t=T],
+    H_G[h,t] == eff_in_h[h] * H_P2H[h, t])
 
 optimize!(m)
 
@@ -168,10 +201,12 @@ result_charging = get_result(D_stor, [:technology, :hour])
 result_CU = get_result(CU, [:hour])
 result_CU[!,:technology] .= "curtailment"
 df_demand = DataFrame(hour=T, technology="demand", value=demand)
+df_heat_g = get_result(H_P2H, [:technology, :hour])
+#df_heat_d_s = get_result(H_D_S, [:technology, :hour])
 
 
 result_generation = vcat(result_feed_in, result_G)
-result_demand = vcat(result_charging, result_CU, df_demand)
+result_demand = vcat(result_charging, result_CU, df_demand, df_heat_g)
 
 table_gen = unstack(result_generation, :hour, :technology, :value)
 table_gen = table_gen[!,[NONDISP..., DISP...]]
@@ -184,8 +219,8 @@ balance_plot = areaplot(data_gen, label=labels, color=colors, width=0,
 
 table_dem = unstack(result_demand, :hour, :technology, :value)
 # add power-to-heat accordingly here
-#table_dem = table_dem[!,["demand","power-to-heat", S...,"curtailment"]]
-table_dem = table_dem[!,["demand", S...,"curtailment"]]
+table_dem = table_dem[!,["demand","p2h", S...,"curtailment"]]
+#table_dem = table_dem[!,["demand", S...,"curtailment"]]
 labels2 = names(table_dem) |> permutedims
 colors2 = [colordict[tech] for tech in labels2]
 replace!(labels2, [item => "" for item in intersect(labels2, labels)]...)
@@ -220,3 +255,14 @@ p3 = bar(x, y, color=c, leg=false, title="Installed storage capacity",
     ylabel="MWh", rotation=90)
 
 plot(p1,p2,p3,layout=(1,3), titlefontsize=6, tickfontsize=6)
+
+####
+heat_generation = value.(H_L_S).data'
+
+heat_balance = areaplot(heat_generation,
+    color=[:darkgrey :darkred :orange],
+    width=0,
+    legend=false,
+    yaxis="GW")
+
+plot!(heat_demand, color=:black, width=2, label="")
