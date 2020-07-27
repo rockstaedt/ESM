@@ -165,6 +165,8 @@ areaplot!(balance_plot, data_dem, label=labels2, color=colors2, width=0,
 
 hline!(balance_plot, [0], color=:black, label="", width=2)
 
+savefig("figures/electricity_balance_without_heat.pdf")
+
 #################################
 
 df_installed_gen = get_result(CAP_G, [:technology])
@@ -189,3 +191,5 @@ p3 = bar(x, y, color=c, leg=false, title="Installed storage capacity",
     ylabel="MWh", rotation=90)
 
 plot(p1,p2,p3,layout=(1,3), titlefontsize=6, tickfontsize=6)
+
+savefig("figures/investment_without_heat.pdf")
