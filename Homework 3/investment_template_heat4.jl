@@ -61,8 +61,8 @@ vc_h = Dict{String, Float64}()
 af_h = annuity_factor(heat_tech_data.lifetime[1], interest_rate)
 ic_generation_cap_h[heat_tech_data.technology[1]] = heat_tech_data.investment_generation[1] * af_h
 
-icsc_h = heat_tech_data.investment_storage[1] * af_h
-icsc_h > 0 && (ic_storage_cap_h[heat_tech_data.technology[1]] = icsc_h)
+icsc = heat_tech_data.investment_storage[1] * af_h
+icsc > 0 && (ic_storage_cap_h[heat_tech_data.technology[1]] = icsc)
 
 heat_tech_data.storage_efficiency_in[1] > 0 && (eff_in_h[heat_tech_data.technology[1]] = heat_tech_data.storage_efficiency_in[1])
 heat_tech_data.storage_efficiency_out[1] > 0 && (eff_out_h[heat_tech_data.technology[1]] = heat_tech_data.storage_efficiency_out[1])
@@ -95,6 +95,7 @@ m = Model(Clp.Optimizer)
     H_P2H[H,T] >= 0
     H_D_S[H,T] >= 0
     H_L_S[H, T] >= 0
+    H_E_S[H,T] >= 0
 
     # new variables for our investment model
     CAP_G[P] >= 0
@@ -123,7 +124,6 @@ end
     + sum(feed_in[ndisp,t] for ndisp in NONDISP)
     - sum(D_stor[s,t] for s in S)
     - sum(H_P2H[h, t] for h in H)
-    - sum(H_D_S[h,t] for h in H)
     - CU[t]
     ==
     demand[t])
@@ -141,7 +141,7 @@ end
     L_stor[s,t] <= CAP_L[s])
 
 @constraint(m, MaxGenerationHeat[h=H, t=T],
-    H_G[h,t] <= CAP_H_G[h])
+    H_G[h,t] + H_E_S[h,t] <= CAP_H_G[h])
 
 @constraint(m, MaxLevelHeat[h=H, t=T],
     H_L_S[h,t] <= CAP_H_L[h])
@@ -153,20 +153,24 @@ end
     + eff_in[s]*D_stor[s,t]
     - (1/eff_out[s]) * G[s,t])
 
+@constraint(m, StorageLevelHStart[h=H, t=T[1]],
+    H_L_S[h, t] == 0)
+
 @constraint(m, StorageLevelHeat[h=H, t=T],
     H_L_S[h, successor(T,t)]
     ==
     H_L_S[h, t]
-    + eff_in_h[h]*H_D_S[h,t]
-    - (1/eff_out_h[h]) * H_G[h,t])
+    + eff_in_h[h]* H_D_S[h,t]
+    - (1/eff_out_h[h]) * H_E_S[h,t])
 
+@constraint(m, Power2Heat[h=H, t=T],
+        # H_G[h,t] == eff_in_h[h] * H_P2H[h, t] - H_D_S[h,t])
+        H_P2H[h,t] == H_G[h,t] + H_D_S[h,t])
 @constraint(m, HeatBalance[t=T],
-    sum(H_G[h, t] for h in H)
+    sum(H_G[h, t] + H_E_S[h,t]*(1/eff_out_h[h]) for h in H)
     >=
     heat_demand[t])
 
-@constraint(m, Power2Heat[h=H, t=T],
-    H_G[h,t] == eff_in_h[h] * H_P2H[h, t])
 
 optimize!(m)
 
@@ -203,8 +207,10 @@ result_CU = get_result(CU, [:hour])
 result_CU[!,:technology] .= "curtailment"
 df_demand = DataFrame(hour=T, technology="demand", value=demand)
 df_heat_g = get_result(H_P2H, [:technology, :hour])
-#df_heat_d_s = get_result(H_D_S, [:technology, :hour])
-
+df_heat_d_s = get_result(H_D_S, [:technology, :hour])
+df_heat_e_S = get_result(H_E_S, [:technology, :hour])
+df_heat_store= get_result(H_L_S, [:technology, :hour])
+# df_heat_gen = get_result(H_G, [:technology, :hour])
 
 result_generation = vcat(result_feed_in, result_G)
 result_demand = vcat(result_charging, result_CU, df_demand, df_heat_g)
@@ -232,6 +238,8 @@ areaplot!(balance_plot, data_dem, label=labels2, color=colors2, width=0,
 
 hline!(balance_plot, [0], color=:black, label="", width=2)
 
+savefig("figures/electricity_balance_with_heat.pdf")
+
 #################################
 
 df_installed_gen = get_result(CAP_G, [:technology])
@@ -257,39 +265,42 @@ p3 = bar(x, y, color=c, leg=false, title="Installed storage capacity",
 
 plot(p1,p2,p3,layout=(1,3), titlefontsize=6, tickfontsize=6)
 
-####
-heat = value.(H_G).data'
+savefig("figures/investment_with_heat.pdf")
 
-heat_balance = areaplot(heat,
-    color=[:darkgrey :darkred :orange],
-    width=0,
-    legend=false,
-    yaxis="GW")
-
-plot!(heat_demand, color=:black, width=2, label="")
-
-
-######
+#################################
 
 df_installed_gen_h = get_result(CAP_H_G, [:technology])
 x = df_installed_gen_h[!,:technology]
 y = df_installed_gen_h[!,:value]
 c = [colordict[tech] for tech in x]
-p1 = bar(x, y, color=c, leg=false, title="Installed power generation",
+p1 = bar(x, y, color=c, leg=false, title="Installed heat generation",
     ylabel="MW", rotation=90)
 
 df_installed_charge_h = get_result(CAP_H_D, [:technology])
 x = df_installed_charge_h[!,:technology]
 y = df_installed_charge_h[!,:value]
 c = [colordict[tech] for tech in x]
-p2 = bar(x, y, color=c, leg=false, title="Installed power charging", rotation=90,
+p2 = bar(x, y, color=c, leg=false, title="Installed heat charging", rotation=90,
     ylim=ylims(p1))
 
 df_installed_storage_h = get_result(CAP_H_L, [:technology])
 x = df_installed_storage_h[!,:technology]
 y = df_installed_storage_h[!,:value]
 c = [colordict[tech] for tech in x]
-p3 = bar(x, y, color=c, leg=false, title="Installed storage capacity",
+p3 = bar(x, y, color=c, leg=false, title="Installed heat storage capacity",
     ylabel="MWh", rotation=90)
 
 plot(p1,p2,p3,layout=(1,3), titlefontsize=6, tickfontsize=6)
+
+savefig("figures/investment-heat_with_heat.pdf")
+
+####
+heat_generation = value.(H_L_S).data'
+
+heat_balance = areaplot(heat_generation,
+    color=[:darkgrey :darkred :orange],
+    width=0,
+    legend=false,
+    yaxis="GW")
+
+plot(heat_demand, color=:black, width=2, label="")
