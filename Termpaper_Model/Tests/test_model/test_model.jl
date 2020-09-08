@@ -9,6 +9,8 @@ using LinearAlgebra
 using CSV
 using Plots
 
+## hallo Theo
+
 # Script to calculate PTDF Matrix
 include("ptdf_calculation.jl")
 
@@ -28,6 +30,8 @@ S_df = joinpath(data_path,"storages.csv") |> CSV.read
 ###############################################################################
 ### Data Preprocessing
 ###############################################################################
+
+## PTDF Matrix
 
 b = vec(Array(select(L_df,"b")))
 A = zeros(nrow(L_df),nrow(N_df))
@@ -225,6 +229,8 @@ JuMP.objective_value(Fax)
 ### Results
 ###############################################################################
 
+export_path = "export_files"
+
 generation_t1 = DataFrame(Plants = PLANTS,
                         t = "t1",
                         DISP = value.(G).data[:,1]
@@ -236,11 +242,9 @@ generation_t2 = DataFrame(Plants = PLANTS,
 
 generation = vcat(generation_t1, generation_t2)
 
-generation_t1.DISP
 
-p1 = bar(x = PLANTS, y = generation_t1.DISP, leg=false, title="Generated electricity in t_1",
-    ylabel="MWh", rotation=90)
-plot(p1)
+CSV.write(joinpath(export_path, "generation.csv"), generation)
+
 value.(Gr)
 
 value.(Gs)
