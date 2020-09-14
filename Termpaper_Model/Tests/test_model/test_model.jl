@@ -3,7 +3,7 @@
 ###############################################################################
 
 using JuMP
-using Clp
+using Gurobi
 using DataFrames
 using LinearAlgebra
 using CSV
@@ -162,7 +162,7 @@ push!(Ts,length(T)+1)# Timesteps for storage levels
 ### Model
 ###############################################################################
 
-Fax = Model(Clp.Optimizer)
+Fax = Model(Gurobi.Optimizer)
 @variables Fax begin
     G[PLANTS,T] >= 0
     INJ[NODES,T]
