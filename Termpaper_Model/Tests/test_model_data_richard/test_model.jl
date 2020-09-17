@@ -30,25 +30,42 @@ R_df = joinpath(data_path,"avail_test.csv") |> CSV.read
 ### Data Preprocessing
 ###############################################################################
 
-## PTDF Matrix
+## Create PTDF Matrix
 
-b = vec(Array(select(L_df,"b")))
+# empty incidence matrix
 A = zeros(nrow(L_df),nrow(N_df))
-NODES = vec(Array(select(N_df,"index")))
-node_idx_to_number = Dict(row.index => row.Column1 for row in eachrow(N_df))
 
-LINES = vec(Array(select(L_df, "index")))
-line_idx_to_number = Dict(row.index => row.Column1 for row in eachrow(L_df))
+# dictionary to map node index with a number for a fixed order
+node_idx_to_number = Dict(row.index => row.Column1+1 for row in eachrow(N_df))
+
+# dictionary to map node number with node index
+node_number_to_idx = Dict(value => key for (key, value) in node_idx_to_number)
+
+# list of all nodes
+NODES = [node_number_to_idx[i] for i in 1:nrow(N_df)]
+
+# dictionary to map line index with a number for a fixed order
+line_idx_to_number = Dict(row.index => row.Column1+1 for row in eachrow(L_df))
+
+# dictionary to map node number with node index
+line_number_to_idx = Dict(value => key for (key, value) in line_idx_to_number)
+
+# list of all lines
+LINES = [line_number_to_idx[i] for i in 1:nrow(L_df)]
+
+# susceptance vector
+b = vec(Array(select(L_df,"b")))
+
+# slack node
 SLACK = "n4622"
 
 # calculation of incidence matrix A
-counter= 1
-for i in eachrow(L_df)
-    wert1 = L_df[counter,:][3]
-    wert2 = L_df[counter,:][4]
-    A[counter,node_idx_to_number[wert1]] = 1
-    A[counter,node_idx_to_number[wert2]] = -1
-    global counter += 1
+for row in eachrow(L_df)
+    line_number = row.Column1+1
+    node_start = row.node_i
+    node_end = row.node_j
+    A[line_number,node_idx_to_number[node_start]] = 1
+    A[line_number,node_idx_to_number[node_end]] = -1
 end
 A
 
