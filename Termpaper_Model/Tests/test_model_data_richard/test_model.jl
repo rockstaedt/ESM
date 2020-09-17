@@ -19,12 +19,12 @@ include("ptdf_calculation.jl")
 
 data_path = "data"
 
-L_df = joinpath(data_path,"lines.csv") |> CSV.read
-N_df = joinpath(data_path,"nodes.csv") |> CSV.read
-P_df = joinpath(data_path,"plants.csv") |> CSV.read
-D_df = joinpath(data_path,"demand.csv") |> CSV.read
-R_df = joinpath(data_path,"res.csv") |> CSV.read
-S_df = joinpath(data_path,"storages.csv") |> CSV.read
+L_df = joinpath(data_path,"lines_test.csv") |> CSV.read
+N_df = joinpath(data_path,"nodes_test.csv") |> CSV.read
+P_df = joinpath(data_path,"plants_test.csv") |> CSV.read
+D_df = joinpath(data_path,"demand_test.csv") |> CSV.read
+R_df = joinpath(data_path,"avail_test.csv") |> CSV.read
+#S_df = joinpath(data_path,"storages.csv") |> CSV.read
 
 ###############################################################################
 ### Data Preprocessing
@@ -35,16 +35,17 @@ S_df = joinpath(data_path,"storages.csv") |> CSV.read
 b = vec(Array(select(L_df,"b")))
 A = zeros(nrow(L_df),nrow(N_df))
 NODES = vec(Array(select(N_df,"index")))
-SLACK = 14
+LINES = vec(Array(select(L_df, "index")))
+SLACK = "n4622"
 
 # calculation of incidence matrix A
 counter= 1
 for i in eachrow(L_df)
-    wert1 = L_df[counter,:][2]
-    wert2 = L_df[counter,:][3]
-    A[counter,wert1] =1
-    A[counter,wert2] =-1
-    global counter +=1
+    wert1 = L_df[counter,:][3]
+    wert2 = L_df[counter,:][4]
+    A[counter,wert1] = 1
+    A[counter,wert2] = -1
+    global counter += 1
 end
 A
 
