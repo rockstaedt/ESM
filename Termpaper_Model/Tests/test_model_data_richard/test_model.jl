@@ -35,7 +35,10 @@ R_df = joinpath(data_path,"avail_test.csv") |> CSV.read
 b = vec(Array(select(L_df,"b")))
 A = zeros(nrow(L_df),nrow(N_df))
 NODES = vec(Array(select(N_df,"index")))
+node_idx_to_number = Dict(row.index => row.Column1 for row in eachrow(N_df))
+
 LINES = vec(Array(select(L_df, "index")))
+line_idx_to_number = Dict(row.index => row.Column1 for row in eachrow(L_df))
 SLACK = "n4622"
 
 # calculation of incidence matrix A
@@ -43,8 +46,8 @@ counter= 1
 for i in eachrow(L_df)
     wert1 = L_df[counter,:][3]
     wert2 = L_df[counter,:][4]
-    A[counter,wert1] = 1
-    A[counter,wert2] = -1
+    A[counter,node_idx_to_number[wert1]] = 1
+    A[counter,node_idx_to_number[wert2]] = -1
     global counter += 1
 end
 A
