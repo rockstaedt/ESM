@@ -53,11 +53,14 @@ line_number_to_idx = Dict(value => key for (key, value) in line_idx_to_number)
 # list of all lines
 LINES = [line_number_to_idx[i] for i in 1:nrow(L_df)]
 
+# dictionary to map line number with susceptance
+line_number_to_sus = Dict(row.Column1 + 1 => row.b for row in eachrow(L_df))
+
 # susceptance vector
-b = vec(Array(select(L_df,"b")))
+b = [line_number_to_sus[i] for i in 1:nrow(L_df)]
 
 # slack node
-SLACK = "n4622"
+SLACK = "n4623"
 
 # calculation of incidence matrix A
 for row in eachrow(L_df)
@@ -70,17 +73,26 @@ end
 A
 
 ptdf = calculate_ptdf(A,b,NODES,SLACK)
-ptdf
 
 # dispatchable plants
-DISP = P_df[P_df.renewable .=="no",:].index
-# nondispatchable plants, shouldnt be that important
-NDISP = P_df[P_df.renewable .=="yes",:].index
+DISP = P_df[P_df.plant_type .== "conventional",:].index
+# nondispatchable plants
+NDISP = P_df[P_df.plant_type .== "wind onshore",:].index
+append!(NDISP, P_df[P_df.plant_type .== "solar",:].index)
+
 PLANTS = vec(Array(select(P_df,"index")))
-LINES = vec(Array(select(L_df,"index"))) #lines
-l_max = vec(Array(select(L_df,"lmax"))) #line maxes
-T = [1,2] #timesteps
-demand= D_df #demand dataframe
+
+# dictionary to map line number with max flow
+line_number_to_maxflow = Dict(row.Column1 + 1 => row.maxflow for row in eachrow(L_df))
+
+# dictionary to map line index with max flow
+line_idx_to_maxflow = Dict(row.index => row.maxflow for row in eachrow(L_df))
+
+l_max = [line_number_to_maxflow[i] for i in 1:nrow(L_df)]
+
+
+T = T = 1:size(D_df, 1) |> collect
+demand = D_df[:, 3:size(D_df,2)] #demand dataframe
 
 
 #df for disp plants
@@ -88,8 +100,8 @@ demand= D_df #demand dataframe
 #make empty copy
 DISP_PLANTS = copy(P_df)
 NONDISP_PLANTS = copy(P_df)
-deleterows!(DISP_PLANTS,1:16)
-deleterows!(NONDISP_PLANTS,1:16)
+delete!(DISP_PLANTS,1:size(P_df,1))
+delete!(NONDISP_PLANTS,1:size(P_df,1))
 
 for i in DISP
     f = P_df[P_df.index .==i,:]
@@ -102,147 +114,88 @@ end
 DISP_PLANTS
 NONDISP_PLANTS
 
-plants_at_node = Dict()
-mc = Dict()
-gmax_c = Dict()
-for i in eachrow(P_df)
-    if !haskey(plants_at_node,i["node"])
-        plants_at_node[i["node"]]=[i["index"]]
+# dictionary to map disp plants to node
+disp_plants_at_node = Dict()
+for row in eachrow(DISP_PLANTS)
+    if !haskey(disp_plants_at_node,row.node)
+        disp_plants_at_node[row.node]=[row.index]
     else
-        push!(plants_at_node[i["node"]],i["index"])
+        push!(disp_plants_at_node[row.node],row.index)
     end
-    mc[i["index"]] = i["mc"]
-    gmax_c[i["index"]] = i["g_max_c"]
 end
-plants_at_node[SLACK]=[]
-plants_at_node
+disp_plants_at_node
 
+# dictionary to map ndisp plants to node
+ndisp_plants_at_node = Dict()
+for row in eachrow(NONDISP_PLANTS)
+    if !haskey(ndisp_plants_at_node,row.node)
+        ndisp_plants_at_node[row.node]=[row.index]
+    else
+        push!(ndisp_plants_at_node[row.node],row.index)
+    end
+end
+ndisp_plants_at_node
+
+
+# map marginal costs to conventional power plants
+mc_c = Dict(row.index => row.mc_el for row in eachrow(DISP_PLANTS))
+# map max of generation of conventional power plants
+gmax_c = Dict(row.index => row.g_max for row in eachrow(DISP_PLANTS))
+
+#plants_at_node[SLACK]=[]
 #to enter slack
-Kopie = copy(P_df)
-push!(Kopie,["0" 14 "0" 0 0 "0" 0])
+#Kopie = copy(P_df)
+#push!(Kopie,["0" 14 "0" 0 0 "0" 0])
 
-#gmax_r für alle nodes, timesteps
-#Capable for two res techs in a single node(pv and wind must be aggregated before hand)
-gmax_r = Dict()
-Techs = [1,2,3]#1=wind,2=pv,3=other
-
-
-
-for n in NODES
-    for t in T
-        for i in Techs
-            gmax_r[n,t,i] = 0
+#gmax_r für alle nodes, ts
+res_feed_in = Dict()
+for row in eachrow(NONDISP_PLANTS)
+        for t in T
+            res_feed_in[row.index,t] = row.g_max * R_df[t,row.index]
         end
-        for i in 1:nrow(P_df[P_df.node .==n,:])
-            if P_df[P_df.node .==n,:][i,:]["tech"] == "wind"
-                gmax_r[n,t,1]= P_df[P_df.node .==n,:][i,:]["g_max_r"]*R_df[t,2]
-            elseif P_df[P_df.node .==n,:][i,:]["tech"] == "pv"
-                gmax_r[n,t,2] = P_df[P_df.node .==n,:][i,:]["g_max_r"]*R_df[t,3]
-            end
-        end
-    end
 end
-
-NODES = vec(Array(select(N_df,"index")))
-NODESCOPY = copy(NODES)
-for i in S_df.node
-    filter!(x-> x !=i ,NODESCOPY)
-end
-
-#Storage Data Preparation
-storage_at_node = Dict()
-gmax_s = Dict()
-mcs=Dict()
-for i in eachrow(S_df)
-    if !haskey(storage_at_node,i["node"])
-        storage_at_node[i["node"]]=[i["index"]]
-    else
-        push!(storage_at_node[i["node"]],i["index"])
-    end
-    gmax_s[i["index"]] = i["g_max_s"]
-    mcs[i["index"]] = i["mc"]
-
-end
-
-storage_at_node
-STORAGES = vec(Array(select(S_df,"index")));
-gmax_s;#storage cap and g max are equal in each timestep
-mcs;
-
-for n in NODESCOPY
-    storage_at_node[n] =[]
-end
-
-T=[1,2]
-Ts = copy(T)
-push!(Ts,length(T)+1)# Timesteps for storage levels
-
+res_feed_in
 
 ###############################################################################
 ### Model
 ###############################################################################
 
-Fax = Model(Gurobi.Optimizer)
-@variables Fax begin
-    G[PLANTS,T] >= 0
-    INJ[NODES,T]
-    Gr[NODES,T] >= 0
-    D[STORAGES,Ts]>=0
-    Gs[STORAGES,Ts]>=0
-    L[STORAGES,Ts]>=0
+m = Model(Gurobi.Optimizer)
 
+@variables m begin
+    G[DISP,T] >= 0
+    INJ[NODES,T]
+    CU[NODES, T] >= 0
 end
 
-@objective(Fax, Min, sum(mc[disp] * G[disp,timestep] for disp in DISP, timestep in T)
-                    +sum(mcs[s]*Gs[s,timestep] for s in STORAGES,timestep in T ));
+@objective(m, Min, sum(mc_c[disp] * G[disp,t] for disp in DISP, t in T));
 
-@constraint(Fax, Max_Generation[plant=PLANTS,timestep = T],
-            G[plant,timestep] <= gmax_c[plant]);
+@constraint(m, Max_Generation[disp=DISP,t=T],
+            G[disp,t] <= gmax_c[disp]);
 
-@constraint(Fax, Max_Gen_Res[node=NODES,timestep=T],
-            Gr[node,timestep] <= sum(gmax_r[node,timestep,tech] for tech in Techs));
-#so far so good
+@constraint(m, EnergyBalance[node=NODES,t=T],
+            sum(G[plant,t] for plant in disp_plants_at_node[node])
+            + sum(res_feed_in[ndisp, t] for ndisp in ndisp_plants_at_node[node])
+            - demand[t,node]
+            - CU[node, t]
+            == INJ[node,t]);
 
-
-
-@constraint(Fax, EnergyBalance[node=NODES,timestep = T],
-            sum(G[plant,timestep] for plant in plants_at_node[node])
-            - demand[timestep,node]  + Gr[node,timestep]
-            - sum(D[s,timestep] for s in storage_at_node[node])
-            + sum(Gs[s,timestep] for s in storage_at_node[node])== INJ[node,timestep]);
-
-
-#storage constraints
-
-@constraint(Fax,Input_Cap[s=STORAGES,timestep=T],
-            D[s,timestep] <= gmax_s[s]);
-
-@constraint(Fax,Generation_Cap[s=STORAGES,timestep=T],
-            Gs[s,timestep] <= gmax_s[s]);
-
-@constraint(Fax,Storage_Cap[s=STORAGES,timestep=T],
-            L[s,timestep] <= gmax_s[s]);
-
-@constraint(Fax,Storage_Level[s=STORAGES,timestep=2:length(T)],
-            L[s,timestep+1]==L[s,timestep]-Gs[s,timestep]+D[s,timestep]);
-
-@constraint(Fax,Start_Level[s=STORAGES],
-            L[s,1]==gmax_s[s]);
-
-
-#Line Constraints
-@constraint(Fax, LineMax[line=LINES],
-            sum(ptdf[line, node] * INJ[node,timestep] for node in NODES,timestep in T) <= l_max[line]
+@constraint(m, LineMax[line=LINES, t=T],
+            sum(ptdf[line_idx_to_number[line],node_idx_to_number[node]] * INJ[node,t] for node in NODES)
+            <= line_idx_to_maxflow[line]
             );
 
-@constraint(Fax, LineMin[line=LINES],
-            sum(ptdf[line, node] * INJ[node,timestep] for node in NODES,timestep in T) >= -l_max[line]
+@constraint(m, LineMin[line=LINES, t=T],
+            sum(ptdf[line_idx_to_number[line],node_idx_to_number[node]] * INJ[node,t] for node in NODES)
+            >= -line_idx_to_maxflow[line]
             );
 
-@constraint(Fax, sum(INJ[node,timestep] for node in NODES,timestep in T) == 0);
+@constraint(m, Slack,
+            sum(INJ[node,t] for node in NODES, t in T) == 0
+            );
 
-JuMP.optimize!(Fax)
-JuMP.objective_value(Fax)
+JuMP.optimize!(m)
+JuMP.objective_value(m)
 
 
 ###############################################################################
@@ -251,26 +204,57 @@ JuMP.objective_value(Fax)
 
 export_path = "export_files"
 
-generation_t1 = DataFrame(Plants = PLANTS,
-                        t = "t1",
-                        DISP = value.(G).data[:,1]
-                        )
-generation_t2 = DataFrame(Plants = PLANTS,
-                        t = "t2",
-                        DISP = value.(G).data[:,2]
-                        )
+generation = value.(G).data
+injections = value.(INJ).data
+curtailment = value.(CU).data
 
-generation = vcat(generation_t1, generation_t2)
+line_results_t = Dict()
+
+for t in T
+    df = DataFrame(Lines=LINES,
+                    Flow=ptdf*value.(INJ).data[:,t],
+                    Line_Capacity = [line_idx_to_maxflow[line] for line in LINES]
+                    )
+    df[!, "Capacity"] .= abs.(df.Flow ./ df.Line_Capacity)
+    line_results_t[t] = df
+end
+
+line_results_t
+
+for (key, value) in line_results_t
+    for row in eachrow(value)
+        if row.Capacity >= 0.8
+            print("Capacity reaches nearly limit on line: ")
+            println(row.Lines)
+            print("At timeslot: ")
+            println(key)
+            print("Capacity: ")
+            println(row.Capacity)
+            println("-----")
+        end
+    end
+end
+
+# generation_t2 = DataFrame(Plants = PLANTS,
+#                         t = "t2",
+#                         DISP = value.(G).data[:,2]
+#                         )
+
+#generation = vcat(generation_t1, generation_t2)
 
 
-CSV.write(joinpath(export_path, "generation.csv"), generation)
+#CSV.write(joinpath(export_path, "generation.csv"), generation)
 
-value.(Gr)
+# unit:€/MWh
+price=dual.(EnergyBalance).data
 
-value.(Gs)
-
-value.(D)
-
-value.(L)
-
-Price=dual.(EnergyBalance).data
+min_price = price[1,1]
+for i in 1:size(price, 1)
+    global min_price
+    for j in 1:size(price, 2)
+        if price[i,j] < min_price
+            min_price = price[i,j]
+        end
+    end
+end
+min_price
