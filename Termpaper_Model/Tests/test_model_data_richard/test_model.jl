@@ -24,7 +24,6 @@ N_df = joinpath(data_path,"nodes_test.csv") |> CSV.read
 P_df = joinpath(data_path,"plants_test.csv") |> CSV.read
 D_df = joinpath(data_path,"demand_test.csv") |> CSV.read
 R_df = joinpath(data_path,"avail_test.csv") |> CSV.read
-#S_df = joinpath(data_path,"storages.csv") |> CSV.read
 
 ###############################################################################
 ### Data Preprocessing
@@ -60,7 +59,7 @@ line_number_to_sus = Dict(row.Column1 + 1 => row.b for row in eachrow(L_df))
 b = [line_number_to_sus[i] for i in 1:nrow(L_df)]
 
 # slack node
-SLACK = "n4623"
+SLACK = NODES[1]
 
 # calculation of incidence matrix A
 for row in eachrow(L_df)
@@ -77,8 +76,9 @@ ptdf = calculate_ptdf(A,b,NODES,SLACK)
 # dispatchable plants
 DISP = P_df[P_df.plant_type .== "conventional",:].index
 # nondispatchable plants
+# excluding "other_res" because no availability data
 NDISP = P_df[P_df.plant_type .== "wind onshore",:].index
-append!(NDISP, P_df[P_df.plant_type .== "solar",:].index)
+append!(NDISP, P_df[P_df.plant_type .== "wind offshore",:].index)
 
 PLANTS = vec(Array(select(P_df,"index")))
 
@@ -123,6 +123,15 @@ for row in eachrow(DISP_PLANTS)
         push!(disp_plants_at_node[row.node],row.index)
     end
 end
+# check if dictionary for disp plants contains all nodes
+# -> it can happen that a node only contains renewables or conventional powerplants
+if length(disp_plants_at_node) < length(NODES)
+    for node in NODES
+        if !haskey(disp_plants_at_node, node)
+            disp_plants_at_node[node] = []
+        end
+    end
+end
 disp_plants_at_node
 
 # dictionary to map ndisp plants to node
@@ -134,8 +143,16 @@ for row in eachrow(NONDISP_PLANTS)
         push!(ndisp_plants_at_node[row.node],row.index)
     end
 end
+# check if dictionary for non disp plants contains all nodes
+# -> it can happen that a node only contains renewables or conventional powerplants
+if length(ndisp_plants_at_node) < length(NODES)
+    for node in NODES
+        if !haskey(ndisp_plants_at_node, node)
+            ndisp_plants_at_node[node] = []
+        end
+    end
+end
 ndisp_plants_at_node
-
 
 # map marginal costs to conventional power plants
 mc_c = Dict(row.index => row.mc_el for row in eachrow(DISP_PLANTS))
@@ -208,6 +225,15 @@ generation = value.(G).data
 injections = value.(INJ).data
 curtailment = value.(CU).data
 
+for i in 1:size(curtailment, 1)
+    for j in 1:size(curtailment, 2)
+        if curtailment[i,j] > 0
+            println("Curtailment in t: ", j, " and node: ", i)
+            println("Amount: ", curtailment[i,j])
+        end
+    end
+end
+
 line_results_t = Dict()
 
 for t in T
@@ -223,7 +249,7 @@ line_results_t
 
 for (key, value) in line_results_t
     for row in eachrow(value)
-        if row.Capacity >= 0.8
+        if row.Capacity >= 0.99
             print("Capacity reaches nearly limit on line: ")
             println(row.Lines)
             print("At timeslot: ")
