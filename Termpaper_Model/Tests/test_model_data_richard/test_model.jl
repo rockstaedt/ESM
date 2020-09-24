@@ -75,10 +75,12 @@ ptdf = calculate_ptdf(A,b,NODES,SLACK)
 
 # dispatchable plants
 DISP = P_df[P_df.plant_type .== "conventional",:].index
+append!(DISP, P_df[P_df.plant_type .== "hydro_ror",:].index)
 # nondispatchable plants
 # excluding "other_res" because no availability data
 NDISP = P_df[P_df.plant_type .== "wind onshore",:].index
 append!(NDISP, P_df[P_df.plant_type .== "wind offshore",:].index)
+append!(NDISP, P_df[P_df.plant_type .== "solar",:].index)
 
 PLANTS = vec(Array(select(P_df,"index")))
 
@@ -228,7 +230,7 @@ curtailment = value.(CU).data
 for i in 1:size(curtailment, 1)
     for j in 1:size(curtailment, 2)
         if curtailment[i,j] > 0
-            println("Curtailment in t: ", j, " and node: ", i)
+            println("Curtailment in t: ", j, " and node: ", node_number_to_idx[i])
             println("Amount: ", curtailment[i,j])
         end
     end
@@ -247,19 +249,19 @@ end
 
 line_results_t
 
-for (key, value) in line_results_t
-    for row in eachrow(value)
-        if row.Capacity >= 0.99
-            print("Capacity reaches nearly limit on line: ")
-            println(row.Lines)
-            print("At timeslot: ")
-            println(key)
-            print("Capacity: ")
-            println(row.Capacity)
-            println("-----")
-        end
-    end
-end
+# for (key, value) in line_results_t
+#     for row in eachrow(value)
+#         if row.Capacity >= 0.99
+#             print("Capacity reaches nearly limit on line: ")
+#             println(row.Lines)
+#             print("At timeslot: ")
+#             println(key)
+#             print("Capacity: ")
+#             println(row.Capacity)
+#             println("-----")
+#         end
+#     end
+# end
 
 # generation_t2 = DataFrame(Plants = PLANTS,
 #                         t = "t2",
@@ -275,12 +277,22 @@ end
 price=dual.(EnergyBalance).data
 
 min_price = price[1,1]
+max_price = price[1,1]
 for i in 1:size(price, 1)
     global min_price
+    global max_price
     for j in 1:size(price, 2)
         if price[i,j] < min_price
             min_price = price[i,j]
         end
+        if price[i,j] > max_price
+            max_price = price[i,j]
+        end
     end
 end
 min_price
+max_price
+
+using Statistics
+
+mean(price)
