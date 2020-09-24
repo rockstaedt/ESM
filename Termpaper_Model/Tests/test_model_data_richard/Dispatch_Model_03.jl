@@ -26,6 +26,24 @@ D_df = select!(D_df, Not(:index))
 ### Data Preprocessing
 ###############################################################################
 
+#Uncomment those to switch out nuclear
+
+P_df[536,:].g_max = 0
+P_df[537,:].g_max = 0
+P_df[538,:].g_max = 0
+P_df[539,:].g_max = 0
+P_df[540,:].g_max = 0
+P_df[541,:].g_max = 0
+P_df[542,:].g_max = 0
+P_df[543,:].g_max = 0
+
+
+
+
+
+
+
+
 Demand = sum(eachcol(D_df));
 # dispatchable plants
 DISP = P_df[P_df.plant_type .== "conventional",:].index
