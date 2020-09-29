@@ -1,0 +1,50 @@
+Timestamp: 28.09.2020 17:24
+
+##############################################################
+
+Optimal solution found.
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+Results for model: Dispatch with nuclear - Period: 2_summer_
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+Cost of generation: 1.535296180020766e7
+
+--> Generating generation dataframe...
+
+--> Exporting of generation file...
+
+--> Calculating curtailment...
+
+Curtailment in t: 10
+Amount: 181.1170331984249
+Curtailment in t: 11
+Amount: 2284.2967666511477
+Curtailment in t: 12
+Amount: 1216.1901327140222
+Curtailment in t: 13
+Amount: 1685.294306079566
+Curtailment in t: 14
+Amount: 4134.974296404518
+Curtailment in t: 15
+Amount: 1328.795273302579
+--> Exporting price file...
+
+--> Generating consumption dataframe...
+
+--> Exporting consumption file...
+
+--> Calculating price...
+
+	Minium price = 0.0 in timestep: 10
+
+	Maximum price = 40.256192903487694 in timestep: 43
+
+	Average price = 19.44217888431359
+
+--> Exporting price file...
+
+##############################################################
+

@@ -1,0 +1,40 @@
+Timestamp: 28.09.2020 17:24
+
+##############################################################
+
+Optimal solution found.
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+Results for model: Dispatch with nuclear - Period: 1_winter_
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+Cost of generation: 7.21742267466321e7
+
+--> Generating generation dataframe...
+
+--> Exporting of generation file...
+
+--> Calculating curtailment...
+
+	No curtailment found...
+
+--> Exporting price file...
+
+--> Generating consumption dataframe...
+
+--> Exporting consumption file...
+
+--> Calculating price...
+
+	Minium price = 29.09380902949645 in timestep: 2
+
+	Maximum price = 46.86948000527504 in timestep: 17
+
+	Average price = 43.17641798200441
+
+--> Exporting price file...
+
+##############################################################
+

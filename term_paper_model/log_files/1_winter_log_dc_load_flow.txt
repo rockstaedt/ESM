@@ -1,0 +1,46 @@
+Timestamp: 28.09.2020 21:11
+
+##############################################################
+
+Optimal solution found.
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+Results for model: DC Load Flow without nuclear - Period: 1_winter_
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+Cost of generation: 9.45363750229899e7
+
+--> Generating generation dataframe...
+
+--> Exporting of generation file...
+
+--> Calculating curtailment...
+
+Curtailment in t: 17 and node: n4650
+Amount: 117.20045165389921
+Curtailment in t: 18 and node: n4650
+Amount: 128.20683156111062
+	No curtailment found...
+
+--> Exporting price file...
+
+--> Generating consumption dataframe...
+
+--> Exporting consumption file...
+
+--> Exporting line results file...
+
+--> Calculating price...
+
+	Minium price = 0.0 in timestep: 17 and node: n4650
+
+	Maximum price = 321.83921654750475 in timestep: 17 and node: n4659
+
+	Average price = 60.316417151579486
+
+--> Exporting price file...
+
+##############################################################
+

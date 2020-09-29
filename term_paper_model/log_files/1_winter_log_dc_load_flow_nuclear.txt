@@ -1,0 +1,42 @@
+Timestamp: 28.09.2020 21:05
+
+##############################################################
+
+Optimal solution found.
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+Results for model: DC Load Flow with nuclear - Period: 1_winter_
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+Cost of generation: 7.33366738316067e7
+
+--> Generating generation dataframe...
+
+--> Exporting of generation file...
+
+--> Calculating curtailment...
+
+	No curtailment found...
+
+--> Exporting price file...
+
+--> Generating consumption dataframe...
+
+--> Exporting consumption file...
+
+--> Exporting line results file...
+
+--> Calculating price...
+
+	Minium price = 13.078026274524255 in timestep: 18 and node: n4650
+
+	Maximum price = 211.485153370452 in timestep: 32 and node: n4659
+
+	Average price = 49.0655792911388
+
+--> Exporting price file...
+
+##############################################################
+
