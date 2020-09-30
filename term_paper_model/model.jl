@@ -624,14 +624,3 @@ for (time_period, time_periode_path) in time_periods
 
     end
 end
-## Snippets
-
-# generation_t2 = DataFrame(Plants = PLANTS,
-#                         t = "t2",
-#                         DISP = value.(G).data[:,2]
-#                         )
-
-#generation = vcat(generation_t1, generation_t2)
-
-
-#CSV.write(joinpath(export_path, "generation.csv"), generation)

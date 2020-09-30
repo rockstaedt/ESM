@@ -1,4 +1,4 @@
-Timestamp: 28.09.2020 21:05
+Timestamp: 29.09.2020 23:22
 
 ##############################################################
 
@@ -10,7 +10,7 @@ Results for model: DC Load Flow with nuclear - Period: 1_winter_
 --------------------------------------------------------------
 --------------------------------------------------------------
 
-Cost of generation: 7.33366738316067e7
+Cost of generation: 3.418414888266411e8
 
 --> Generating generation dataframe...
 
@@ -30,11 +30,11 @@ Cost of generation: 7.33366738316067e7
 
 --> Calculating price...
 
-	Minium price = 13.078026274524255 in timestep: 18 and node: n4650
+	Minium price = 9.609813297088223 in timestep: 90 and node: n4650
 
-	Maximum price = 211.485153370452 in timestep: 32 and node: n4659
+	Maximum price = 221.9982111617524 in timestep: 90 and node: n4659
 
-	Average price = 49.0655792911388
+	Average price = 46.08226349453191
 
 --> Exporting price file...
 

@@ -1,4 +1,4 @@
-Timestamp: 28.09.2020 21:00
+Timestamp: 29.09.2020 22:16
 
 ##############################################################
 
@@ -10,7 +10,7 @@ Results for model: Dispatch without nuclear - Period: 2_summer_
 --------------------------------------------------------------
 --------------------------------------------------------------
 
-Cost of generation: 1.90154323510108e7
+Cost of generation: 1.1711062401737972e8
 
 --> Generating generation dataframe...
 
@@ -36,6 +36,30 @@ Amount: 4134.974296404518
 Curtailment in t: 15
 Amount: 1328.795273302579
 
+Curtailment in t: 107
+Amount: 502.27073773826015
+
+Curtailment in t: 108
+Amount: 2852.440233715934
+
+Curtailment in t: 109
+Amount: 2418.195510398997
+
+Curtailment in t: 133
+Amount: 308.9338518803699
+
+Curtailment in t: 228
+Amount: 394.29555651204197
+
+Curtailment in t: 229
+Amount: 2956.9378780444235
+
+Curtailment in t: 230
+Amount: 2070.6564325432137
+
+Curtailment in t: 231
+Amount: 63.771665092375514
+
 --> Exporting price file...
 
 --> Generating consumption dataframe...
@@ -48,7 +72,7 @@ Amount: 1328.795273302579
 
 	Maximum price = 45.01012458242957 in timestep: 43
 
-	Average price = 24.48136062756312
+	Average price = 27.835595132975286
 
 --> Exporting price file...
 

@@ -1,4 +1,4 @@
-Timestamp: 28.09.2020 21:10
+Timestamp: 30.09.2020 09:07
 
 ##############################################################
 
@@ -10,7 +10,7 @@ Results for model: DC Load Flow without nuclear - Period: 2_summer_
 --------------------------------------------------------------
 --------------------------------------------------------------
 
-Cost of generation: 2.1902884811495453e7
+Cost of generation: 1.2255355254182062e8
 
 --> Generating generation dataframe...
 
@@ -18,92 +18,130 @@ Cost of generation: 2.1902884811495453e7
 
 --> Calculating curtailment...
 
-Curtailment in t: 6 and node: n4501
-Amount: 137.2439395259384
-Curtailment in t: 7 and node: n4501
-Amount: 541.1955400325483
-Curtailment in t: 8 and node: n4501
-Amount: 542.0675017624357
-Curtailment in t: 9 and node: n4501
-Amount: 515.3520637535546
-Curtailment in t: 10 and node: n4501
-Amount: 180.53804618875094
-Curtailment in t: 11 and node: n4501
-Amount: 103.05294049706855
-Curtailment in t: 12 and node: n4501
-Amount: 544.3469929720912
-Curtailment in t: 13 and node: n4501
-Amount: 128.14148367243718
-Curtailment in t: 14 and node: n4501
-Amount: 386.17533696433134
-Curtailment in t: 15 and node: n4501
-Amount: 462.3788594684137
+Curtailment in t: 108 and node: n3495
+Amount: 494.675992807131
+Curtailment in t: 6 and node: n4516
+Amount: 137.2439395259358
 Curtailment in t: 7 and node: n4516
-Amount: 164.98935194118832
-Curtailment in t: 7 and node: n4575
-Amount: 440.52561034467186
-Curtailment in t: 8 and node: n4575
-Amount: 400.2604930801311
-Curtailment in t: 11 and node: n4575
-Amount: 452.1939474534653
-Curtailment in t: 12 and node: n4575
-Amount: 128.5460386072773
-Curtailment in t: 13 and node: n4575
-Amount: 456.76798001719163
-Curtailment in t: 14 and node: n4575
-Amount: 455.2116421680438
-Curtailment in t: 16 and node: n4575
-Amount: 126.50118581039055
-Curtailment in t: 17 and node: n4575
-Amount: 322.428449677765
+Amount: 1146.7105023184024
+Curtailment in t: 8 and node: n4516
+Amount: 942.3279948425641
+Curtailment in t: 9 and node: n4516
+Amount: 515.3520637535561
+Curtailment in t: 10 and node: n4516
+Amount: 180.53804618874693
+Curtailment in t: 11 and node: n4516
+Amount: 84.29392845449658
+Curtailment in t: 12 and node: n4516
+Amount: 672.8930315793652
+Curtailment in t: 13 and node: n4516
+Amount: 584.9094636896263
+Curtailment in t: 14 and node: n4516
+Amount: 640.47811188876
+Curtailment in t: 16 and node: n4516
+Amount: 126.50118581039442
+Curtailment in t: 17 and node: n4516
+Amount: 322.4284496777671
+Curtailment in t: 1 and node: n4696
+Amount: 36.08814695155044
 Curtailment in t: 2 and node: n4696
-Amount: 30.189936398727582
+Amount: 33.34100325244197
 Curtailment in t: 3 and node: n4696
-Amount: 38.77490544424973
+Amount: 45.264137128285306
 Curtailment in t: 4 and node: n4696
 Amount: 23.19807788804114
 Curtailment in t: 6 and node: n4696
-Amount: 12.96092686118513
+Amount: 12.96092686118537
 Curtailment in t: 7 and node: n4696
-Amount: 122.32564603539247
+Amount: 122.32564603539193
 Curtailment in t: 8 and node: n4696
-Amount: 258.6891222591772
+Amount: 258.6891222591707
 Curtailment in t: 9 and node: n4696
-Amount: 339.7090149060532
+Amount: 339.7090149060476
 Curtailment in t: 10 and node: n4696
-Amount: 447.87868371981983
+Amount: 447.8786837198141
 Curtailment in t: 11 and node: n4696
-Amount: 457.30084383721425
+Amount: 495.4934281511989
 Curtailment in t: 12 and node: n4696
-Amount: 502.73698290440046
+Amount: 502.73698290439455
 Curtailment in t: 13 and node: n4696
-Amount: 506.16183674283053
+Amount: 506.1618367428252
 Curtailment in t: 14 and node: n4696
-Amount: 460.1256200558728
+Amount: 476.48526819256915
 Curtailment in t: 15 and node: n4696
-Amount: 408.9786264855028
+Amount: 446.5399988271296
 Curtailment in t: 16 and node: n4696
-Amount: 279.111396680822
+Amount: 279.11139668081574
 Curtailment in t: 17 and node: n4696
-Amount: 80.90810026746645
+Amount: 80.90810026746585
+Curtailment in t: 129 and node: n4696
+Amount: 71.14944881397247
+Curtailment in t: 130 and node: n4696
+Amount: 188.14655889471203
+Curtailment in t: 131 and node: n4696
+Amount: 304.9894555676428
+Curtailment in t: 132 and node: n4696
+Amount: 385.2649087703494
+Curtailment in t: 133 and node: n4696
+Amount: 436.70448225080554
+Curtailment in t: 134 and node: n4696
+Amount: 393.8873678931154
+Curtailment in t: 135 and node: n4696
+Amount: 281.4724044058537
+Curtailment in t: 136 and node: n4696
+Amount: 193.6846006365883
+Curtailment in t: 137 and node: n4696
+Amount: 67.95201613028223
+Curtailment in t: 225 and node: n4696
+Amount: 127.76499217878882
+Curtailment in t: 226 and node: n4696
+Amount: 195.41517586348593
+Curtailment in t: 227 and node: n4696
+Amount: 331.1070237378576
+Curtailment in t: 228 and node: n4696
+Amount: 361.906314904487
+Curtailment in t: 229 and node: n4696
+Amount: 432.67411223703954
+Curtailment in t: 230 and node: n4696
+Amount: 388.20880957426687
+Curtailment in t: 231 and node: n4696
+Amount: 350.92430140650913
+Curtailment in t: 232 and node: n4696
+Amount: 196.35995434322103
+Curtailment in t: 233 and node: n4696
+Amount: 116.97218422766836
+Curtailment in t: 234 and node: n4696
+Amount: 2.6942758654175094
 Curtailment in t: 9 and node: n4775
-Amount: 241.10536148178332
+Amount: 241.10536148179878
 Curtailment in t: 10 and node: n4775
-Amount: 714.7441107678715
+Amount: 714.7441107678961
 Curtailment in t: 11 and node: n4775
-Amount: 731.580432264067
+Amount: 903.9121545153321
 Curtailment in t: 12 and node: n4775
-Amount: 976.9386189518289
+Amount: 976.9386189518557
 Curtailment in t: 13 and node: n4775
-Amount: 1004.5460858624732
+Amount: 1004.5460858624944
 Curtailment in t: 14 and node: n4775
-Amount: 746.3224673101247
+Amount: 819.843192456771
 Curtailment in t: 15 and node: n4775
-Amount: 1412.3199808034874
+Amount: 702.9059361199324
+Curtailment in t: 132 and node: n4775
+Amount: 175.50117224777577
+Curtailment in t: 133 and node: n4775
+Amount: 443.2204672906273
+Curtailment in t: 134 and node: n4775
+Amount: 253.08745552295127
+Curtailment in t: 229 and node: n4775
+Amount: 268.6235448244611
+Curtailment in t: 230 and node: n4775
+Amount: 296.1958685029517
+Curtailment in t: 231 and node: n4775
+Amount: 109.61207204439118
 Curtailment in t: 7 and node: n4789
-Amount: 87.11787542667737
+Amount: 87.11787542668749
 Curtailment in t: 8 and node: n4789
-Amount: 764.0419271687124
+Amount: 764.041927168731
 Curtailment in t: 9 and node: n4789
 Amount: 878.3412399678772
 Curtailment in t: 10 and node: n4789
@@ -116,34 +154,38 @@ Curtailment in t: 13 and node: n4789
 Amount: 867.5504116758254
 Curtailment in t: 14 and node: n4789
 Amount: 873.1544145252768
+Curtailment in t: 15 and node: n4789
+Amount: 878.5566734888976
 Curtailment in t: 16 and node: n4789
-Amount: 840.3811877691479
-Curtailment in t: 5 and node: n5540
-Amount: 75.18546483008473
-Curtailment in t: 8 and node: n5540
-Amount: 269.0066148616329
-Curtailment in t: 11 and node: n5540
-Amount: 284.56744510707813
-Curtailment in t: 12 and node: n5540
-Amount: 281.62931104064353
-Curtailment in t: 16 and node: n5540
-Amount: 209.63779032602997
-Curtailment in t: 17 and node: n5540
-Amount: 254.87632846765928
-Curtailment in t: 6 and node: n5541
-Amount: 181.27756674728732
-Curtailment in t: 7 and node: n5541
-Amount: 300.09092333383217
-Curtailment in t: 9 and node: n5541
-Amount: 238.81237271802257
-Curtailment in t: 10 and node: n5541
-Amount: 238.35621250643712
-Curtailment in t: 13 and node: n5541
-Amount: 275.57148716683764
-Curtailment in t: 14 and node: n5541
-Amount: 292.7906947531539
-Curtailment in t: 15 and node: n5541
-Amount: 227.69284321201707
+Amount: 840.3811877691654
+Curtailment in t: 130 and node: n4789
+Amount: 81.36531159582297
+Curtailment in t: 131 and node: n4789
+Amount: 714.2975264658573
+Curtailment in t: 132 and node: n4789
+Amount: 872.9315401261805
+Curtailment in t: 133 and node: n4789
+Amount: 872.7988261042009
+Curtailment in t: 134 and node: n4789
+Amount: 874.5123269919
+Curtailment in t: 135 and node: n4789
+Amount: 643.1033766594576
+Curtailment in t: 136 and node: n4789
+Amount: 48.8921645120364
+Curtailment in t: 227 and node: n4789
+Amount: 591.2362209777705
+Curtailment in t: 228 and node: n4789
+Amount: 846.6828813524053
+Curtailment in t: 229 and node: n4789
+Amount: 881.4083434031024
+Curtailment in t: 230 and node: n4789
+Amount: 882.5391829075836
+Curtailment in t: 231 and node: n4789
+Amount: 884.6118286720603
+Curtailment in t: 232 and node: n4789
+Amount: 225.99256751025646
+Curtailment in t: 109 and node: n5543
+Amount: 170.3308229114522
 Curtailment in t: 6 and node: n5579
 Amount: 6.135308520724095
 Curtailment in t: 7 and node: n5579
@@ -176,166 +218,258 @@ Curtailment in t: 20 and node: n5579
 Amount: 1.236001423203163
 Curtailment in t: 21 and node: n5579
 Amount: 0.17165872163462836
-Curtailment in t: 11 and node: n5645
-Amount: 19.02625946352193
-Curtailment in t: 12 and node: n5645
-Amount: 24.320473818748695
-Curtailment in t: 13 and node: n5645
-Amount: 15.160659652338389
-Curtailment in t: 14 and node: n5645
-Amount: 13.860779028107352
+Curtailment in t: 128 and node: n5579
+Amount: 5.797676014944216
+Curtailment in t: 129 and node: n5579
+Amount: 19.807389037723794
+Curtailment in t: 130 and node: n5579
+Amount: 24.663501123083165
+Curtailment in t: 131 and node: n5579
+Amount: 28.707573884824058
+Curtailment in t: 132 and node: n5579
+Amount: 35.16226301154802
+Curtailment in t: 133 and node: n5579
+Amount: 37.36618534321053
+Curtailment in t: 134 and node: n5579
+Amount: 35.26547924662833
+Curtailment in t: 135 and node: n5579
+Amount: 30.238152387510695
+Curtailment in t: 136 and node: n5579
+Amount: 21.80559316830596
+Curtailment in t: 137 and node: n5579
+Amount: 11.511835309292906
+Curtailment in t: 138 and node: n5579
+Amount: 3.30300071399148
 Curtailment in t: 1 and node: n5663
-Amount: 152.4839580032538
+Amount: 152.48395800325355
 Curtailment in t: 2 and node: n5663
-Amount: 157.14602234909802
+Amount: 157.14602234909782
 Curtailment in t: 3 and node: n5663
-Amount: 160.62275158582872
+Amount: 160.62275158582852
 Curtailment in t: 4 and node: n5663
 Amount: 160.514944233727
 Curtailment in t: 5 and node: n5663
-Amount: 164.66674372773272
+Amount: 164.66674372773292
 Curtailment in t: 6 and node: n5663
-Amount: 176.4600321506902
+Amount: 176.46003215069103
 Curtailment in t: 7 and node: n5663
 Amount: 200.73186317113968
 Curtailment in t: 8 and node: n5663
-Amount: 214.8566585973709
+Amount: 214.85665859737352
 Curtailment in t: 9 and node: n5663
-Amount: 220.9523688534763
+Amount: 220.9523688534793
 Curtailment in t: 10 and node: n5663
-Amount: 235.07356519371774
+Amount: 235.07356519371976
 Curtailment in t: 11 and node: n5663
-Amount: 240.47616061779297
+Amount: 240.47616061779422
 Curtailment in t: 12 and node: n5663
-Amount: 246.2853319878596
+Amount: 246.2853319878597
 Curtailment in t: 13 and node: n5663
-Amount: 248.7548407516897
+Amount: 248.7548407516919
 Curtailment in t: 14 and node: n5663
-Amount: 245.9513345539959
+Amount: 245.9513345539958
 Curtailment in t: 15 and node: n5663
-Amount: 233.4456678366567
+Amount: 233.44566783665996
 Curtailment in t: 16 and node: n5663
-Amount: 216.47296706193293
+Amount: 216.47296706193458
 Curtailment in t: 17 and node: n5663
-Amount: 188.6414115959487
+Amount: 188.6414115959498
 Curtailment in t: 18 and node: n5663
-Amount: 151.8565840249607
+Amount: 151.8565840249608
 Curtailment in t: 19 and node: n5663
 Amount: 91.55816257118128
-Curtailment in t: 22 and node: n5663
-Amount: 7.272608224164671
 Curtailment in t: 23 and node: n5663
-Amount: 46.765232157596984
+Amount: 46.765232157597
 Curtailment in t: 24 and node: n5663
-Amount: 97.55422969738132
+Amount: 97.55422969738129
 Curtailment in t: 25 and node: n5663
 Amount: 40.01447453684722
+Curtailment in t: 129 and node: n5663
+Amount: 56.15107610073272
+Curtailment in t: 130 and node: n5663
+Amount: 159.14008830531506
+Curtailment in t: 131 and node: n5663
+Amount: 186.1394364996548
+Curtailment in t: 132 and node: n5663
+Amount: 197.0752819463576
+Curtailment in t: 133 and node: n5663
+Amount: 200.2762847038448
+Curtailment in t: 134 and node: n5663
+Amount: 197.67781375857746
+Curtailment in t: 135 and node: n5663
+Amount: 188.47080601052295
+Curtailment in t: 136 and node: n5663
+Amount: 176.3205902905899
+Curtailment in t: 137 and node: n5663
+Amount: 156.1523184495185
+Curtailment in t: 138 and node: n5663
+Amount: 21.372270468975344
+Curtailment in t: 226 and node: n5663
+Amount: 9.736165055427705
+Curtailment in t: 227 and node: n5663
+Amount: 167.96463536319663
+Curtailment in t: 228 and node: n5663
+Amount: 183.2463956912147
+Curtailment in t: 229 and node: n5663
+Amount: 199.84405790569932
+Curtailment in t: 230 and node: n5663
+Amount: 204.05098342956992
+Curtailment in t: 231 and node: n5663
+Amount: 208.12076832283145
+Curtailment in t: 232 and node: n5663
+Amount: 199.78457227759725
+Curtailment in t: 233 and node: n5663
+Amount: 179.8471491461144
+Curtailment in t: 234 and node: n5663
+Amount: 159.19920390415695
+Curtailment in t: 235 and node: n5663
+Amount: 61.77291088356603
 Curtailment in t: 1 and node: n5666
-Amount: 231.57991851711142
+Amount: 262.6774748237628
 Curtailment in t: 2 and node: n5666
-Amount: 398.46511239795245
+Amount: 419.5841721653735
 Curtailment in t: 3 and node: n5666
-Amount: 530.2246099681793
+Amount: 550.7599237106638
 Curtailment in t: 4 and node: n5666
 Amount: 552.7410101157598
 Curtailment in t: 5 and node: n5666
-Amount: 606.1334192705294
+Amount: 606.1334192705293
 Curtailment in t: 6 and node: n5666
-Amount: 793.2522746029812
+Amount: 793.2522746029803
 Curtailment in t: 7 and node: n5666
-Amount: 1062.5841079463078
+Amount: 1062.5841079463066
 Curtailment in t: 8 and node: n5666
-Amount: 1165.5078331590048
+Amount: 1165.507833159005
 Curtailment in t: 9 and node: n5666
-Amount: 1206.59802545004
+Amount: 1206.5980254500373
 Curtailment in t: 10 and node: n5666
-Amount: 1285.5637307545092
+Amount: 1285.5637307545073
 Curtailment in t: 11 and node: n5666
-Amount: 1308.2748530439262
+Amount: 1309.8317954102145
 Curtailment in t: 12 and node: n5666
-Amount: 1359.2905731975525
+Amount: 1359.2905731975472
 Curtailment in t: 13 and node: n5666
-Amount: 1388.3247774053916
+Amount: 1388.324777405394
 Curtailment in t: 14 and node: n5666
-Amount: 1379.3306619941604
+Amount: 1384.1668271856167
 Curtailment in t: 15 and node: n5666
-Amount: 1302.5619582951656
+Amount: 1290.7862931362781
 Curtailment in t: 16 and node: n5666
-Amount: 1158.083219792108
+Amount: 1158.0832197921063
 Curtailment in t: 17 and node: n5666
-Amount: 866.0458234052579
+Amount: 866.0458234052564
 Curtailment in t: 18 and node: n5666
-Amount: 197.4361800221253
-Curtailment in t: 8 and node: n5675
-Amount: 96.27156947932954
-Curtailment in t: 9 and node: n5675
-Amount: 288.2954286895367
-Curtailment in t: 10 and node: n5675
-Amount: 543.2685888279543
-Curtailment in t: 11 and node: n5675
-Amount: 546.9215379522368
-Curtailment in t: 12 and node: n5675
-Amount: 650.4931271985688
-Curtailment in t: 13 and node: n5675
-Amount: 653.7730688821064
-Curtailment in t: 14 and node: n5675
-Amount: 537.2598084237818
-Curtailment in t: 15 and node: n5675
-Amount: 402.3683302447335
-Curtailment in t: 16 and node: n5675
-Amount: 99.92794502210847
-Curtailment in t: 8 and node: n5683
-Amount: 749.218942243897
-Curtailment in t: 12 and node: n5683
-Amount: 851.7949933522659
-Curtailment in t: 14 and node: n5683
-Amount: 855.3155373296855
-Curtailment in t: 16 and node: n5683
-Amount: 667.7572400660351
-Curtailment in t: 7 and node: n5688
+Amount: 197.43618002212528
+Curtailment in t: 131 and node: n5666
+Amount: 554.1997220415468
+Curtailment in t: 132 and node: n5666
+Amount: 647.7559383152488
+Curtailment in t: 133 and node: n5666
+Amount: 700.4927228431523
+Curtailment in t: 134 and node: n5666
+Amount: 732.2241318936196
+Curtailment in t: 135 and node: n5666
+Amount: 681.6714879000658
+Curtailment in t: 136 and node: n5666
+Amount: 441.35308480293594
+Curtailment in t: 227 and node: n5666
+Amount: 330.01645882443466
+Curtailment in t: 228 and node: n5666
+Amount: 559.3454279758039
+Curtailment in t: 229 and node: n5666
+Amount: 734.5678985689945
+Curtailment in t: 230 and node: n5666
+Amount: 847.5107101039516
+Curtailment in t: 231 and node: n5666
+Amount: 897.409350117462
+Curtailment in t: 232 and node: n5666
+Amount: 792.305191496087
+Curtailment in t: 233 and node: n5666
+Amount: 363.45672057615275
+Curtailment in t: 9 and node: n5674
+Amount: 890.2368536193135
+Curtailment in t: 10 and node: n5674
+Amount: 1147.0753415583501
+Curtailment in t: 11 and node: n5674
+Amount: 1226.2424452464093
+Curtailment in t: 12 and node: n5674
+Amount: 1253.3844132094143
+Curtailment in t: 14 and node: n5674
+Amount: 1179.7827877430295
+Curtailment in t: 15 and node: n5674
+Amount: 1083.4983185302708
+Curtailment in t: 16 and node: n5674
+Amount: 695.356069656822
+Curtailment in t: 17 and node: n5674
+Amount: 61.609564119421904
+Curtailment in t: 131 and node: n5674
+Amount: 162.87184573390644
+Curtailment in t: 132 and node: n5674
+Amount: 358.30213145032553
+Curtailment in t: 134 and node: n5674
+Amount: 457.55838361776955
+Curtailment in t: 135 and node: n5674
+Amount: 209.73285073878168
+Curtailment in t: 229 and node: n5674
+Amount: 423.8289944796409
+Curtailment in t: 230 and node: n5674
+Amount: 484.5320438931636
+Curtailment in t: 232 and node: n5674
+Amount: 52.355321216292
+Curtailment in t: 7 and node: n5675
 Amount: 356.76139040512606
-Curtailment in t: 8 and node: n5688
-Amount: 606.1084613532189
-Curtailment in t: 9 and node: n5688
-Amount: 601.9414249297822
-Curtailment in t: 10 and node: n5688
-Amount: 603.8067527303979
-Curtailment in t: 11 and node: n5688
-Amount: 601.851056124526
-Curtailment in t: 12 and node: n5688
-Amount: 602.8912860108479
-Curtailment in t: 13 and node: n5688
-Amount: 604.3868912034606
-Curtailment in t: 14 and node: n5688
-Amount: 609.1466190935288
-Curtailment in t: 15 and node: n5688
-Amount: 606.0552869072291
-Curtailment in t: 16 and node: n5688
-Amount: 595.4281246347194
-Curtailment in t: 17 and node: n5688
-Amount: 61.609564119421236
+Curtailment in t: 8 and node: n5675
+Amount: 702.380030832546
+Curtailment in t: 13 and node: n5675
+Amount: 1258.159960085561
+Curtailment in t: 133 and node: n5675
+Amount: 502.3946337045731
+Curtailment in t: 228 and node: n5675
+Amount: 174.0019968574656
+Curtailment in t: 231 and node: n5675
+Amount: 435.2929931289086
+Curtailment in t: 7 and node: n5678
+Amount: 542.7866312808763
+Curtailment in t: 8 and node: n5678
+Amount: 749.2189422438963
+Curtailment in t: 9 and node: n5678
+Amount: 841.7463983196543
+Curtailment in t: 15 and node: n5678
+Amount: 896.8725929994345
+Curtailment in t: 16 and node: n5678
+Amount: 667.7572400660335
+Curtailment in t: 17 and node: n5678
+Amount: 290.08259953118153
+Curtailment in t: 131 and node: n5678
+Amount: 168.3648763513828
+Curtailment in t: 132 and node: n5678
+Amount: 298.76627329779325
+Curtailment in t: 134 and node: n5678
+Amount: 343.4662730327969
+Curtailment in t: 135 and node: n5678
+Amount: 200.95652173446985
+Curtailment in t: 136 and node: n5678
+Amount: 6.237317241570906
+Curtailment in t: 228 and node: n5678
+Amount: 58.76189806691035
+Curtailment in t: 229 and node: n5678
+Amount: 245.51087616817256
+Curtailment in t: 230 and node: n5678
+Amount: 314.62263596730725
+Curtailment in t: 231 and node: n5678
+Amount: 349.10161338605104
+Curtailment in t: 232 and node: n5678
+Amount: 180.46757017935118
+Curtailment in t: 11 and node: n5695
+Amount: 1056.1942433380996
 Curtailment in t: 12 and node: n5695
-Amount: 8.515370104905465
+Amount: 1109.7072785685832
 Curtailment in t: 13 and node: n5695
-Amount: 1102.62239135208
+Amount: 1102.6223913520791
 Curtailment in t: 14 and node: n5695
-Amount: 191.8789396913475
-Curtailment in t: 6 and node: n5714
-Amount: 183.190042754241
-Curtailment in t: 7 and node: n5714
-Amount: 542.7866312808777
-Curtailment in t: 9 and node: n5714
-Amount: 841.7463983196569
-Curtailment in t: 10 and node: n5714
-Amount: 1013.7218841508666
-Curtailment in t: 11 and node: n5714
-Amount: 1049.9954071916554
-Curtailment in t: 12 and node: n5714
-Amount: 249.39691511142905
-Curtailment in t: 15 and node: n5714
-Amount: 891.0825730157364
-Curtailment in t: 17 and node: n5714
-Amount: 290.0825995311825
+Amount: 1049.9352542082863
+Curtailment in t: 10 and node: n5696
+Amount: 1013.7218841508487
 Curtailment in t: 1 and node: n5722
 Amount: 147.75070929434145
 Curtailment in t: 2 and node: n5722
@@ -390,72 +524,314 @@ Curtailment in t: 26 and node: n5722
 Amount: 85.86716539712523
 Curtailment in t: 37 and node: n5722
 Amount: 7.583076672161326
+Curtailment in t: 96 and node: n5722
+Amount: 30.21873927292819
+Curtailment in t: 97 and node: n5722
+Amount: 52.353407367146644
+Curtailment in t: 98 and node: n5722
+Amount: 77.13800051489824
+Curtailment in t: 99 and node: n5722
+Amount: 60.45907212872652
+Curtailment in t: 100 and node: n5722
+Amount: 30.999790067871174
+Curtailment in t: 121 and node: n5722
+Amount: 9.48697267763913
+Curtailment in t: 122 and node: n5722
+Amount: 52.97691914444857
+Curtailment in t: 123 and node: n5722
+Amount: 60.926700133375505
+Curtailment in t: 124 and node: n5722
+Amount: 71.99524647258869
+Curtailment in t: 125 and node: n5722
+Amount: 77.61521028983015
+Curtailment in t: 126 and node: n5722
+Amount: 87.60787540828511
+Curtailment in t: 127 and node: n5722
+Amount: 105.71113605331965
+Curtailment in t: 128 and node: n5722
+Amount: 120.22978681161027
+Curtailment in t: 129 and node: n5722
+Amount: 133.80896185154887
+Curtailment in t: 130 and node: n5722
+Amount: 135.8438495158528
+Curtailment in t: 131 and node: n5722
+Amount: 136.16434206731043
+Curtailment in t: 132 and node: n5722
+Amount: 143.80902894583068
+Curtailment in t: 133 and node: n5722
+Amount: 145.8385312355959
+Curtailment in t: 134 and node: n5722
+Amount: 147.23426389179536
+Curtailment in t: 135 and node: n5722
+Amount: 150.17957889057658
+Curtailment in t: 136 and node: n5722
+Amount: 150.46950186470195
+Curtailment in t: 137 and node: n5722
+Amount: 150.91057018128532
+Curtailment in t: 138 and node: n5722
+Amount: 153.06986865015932
+Curtailment in t: 139 and node: n5722
+Amount: 154.61504477720956
+Curtailment in t: 140 and node: n5722
+Amount: 151.95968772251825
+Curtailment in t: 141 and node: n5722
+Amount: 151.33590201382748
+Curtailment in t: 142 and node: n5722
+Amount: 150.4006343478748
+Curtailment in t: 143 and node: n5722
+Amount: 144.32139451918096
+Curtailment in t: 144 and node: n5722
+Amount: 151.9594137911294
+Curtailment in t: 145 and node: n5722
+Amount: 146.81544162838867
+Curtailment in t: 146 and node: n5722
+Amount: 131.5394030844913
+Curtailment in t: 147 and node: n5722
+Amount: 92.72580660410125
+Curtailment in t: 148 and node: n5722
+Amount: 37.702442592300656
+Curtailment in t: 219 and node: n5722
+Amount: 27.724703820375396
+Curtailment in t: 220 and node: n5722
+Amount: 38.014058601093495
+Curtailment in t: 221 and node: n5722
+Amount: 22.591310071906776
+Curtailment in t: 222 and node: n5722
+Amount: 9.358482043873153
+Curtailment in t: 224 and node: n5722
+Amount: 18.44638496210581
+Curtailment in t: 225 and node: n5722
+Amount: 33.431439776286595
+Curtailment in t: 226 and node: n5722
+Amount: 42.169265553063894
+Curtailment in t: 227 and node: n5722
+Amount: 60.410820078589325
+Curtailment in t: 228 and node: n5722
+Amount: 54.331568593240775
+Curtailment in t: 229 and node: n5722
+Amount: 60.25035524058222
+Curtailment in t: 230 and node: n5722
+Amount: 65.85060182615251
+Curtailment in t: 231 and node: n5722
+Amount: 24.84067368444431
+Curtailment in t: 233 and node: n5722
+Amount: 1.883433790723359
 Curtailment in t: 1 and node: n7786
-Amount: 702.2968893536382
+Amount: 731.8812340746057
 Curtailment in t: 2 and node: n7786
-Amount: 786.2295136702384
+Amount: 795.7635727284126
 Curtailment in t: 3 and node: n7786
-Amount: 799.1896207141746
+Amount: 811.5851557090169
 Curtailment in t: 4 and node: n7786
 Amount: 715.6166966840635
 Curtailment in t: 5 and node: n7786
-Amount: 482.06321186207066
+Amount: 482.06321186207083
 Curtailment in t: 6 and node: n7786
-Amount: 656.6116317169609
+Amount: 656.6116317169616
 Curtailment in t: 7 and node: n7786
-Amount: 951.7413948233099
+Amount: 951.7413948233127
 Curtailment in t: 8 and node: n7786
-Amount: 1348.0904038508745
+Amount: 1348.0904038508759
 Curtailment in t: 9 and node: n7786
-Amount: 1475.5120309353279
+Amount: 1475.5120309353329
 Curtailment in t: 10 and node: n7786
-Amount: 1776.1959583918576
+Amount: 1776.1959583918538
 Curtailment in t: 11 and node: n7786
-Amount: 1834.4894917531017
+Amount: 1917.4455835703943
 Curtailment in t: 12 and node: n7786
-Amount: 1987.7273368682613
+Amount: 1987.727336868258
 Curtailment in t: 13 and node: n7786
-Amount: 2016.5461522377868
+Amount: 2016.5461522377827
 Curtailment in t: 14 and node: n7786
-Amount: 1892.0474168677329
+Amount: 1928.5468917104702
 Curtailment in t: 15 and node: n7786
-Amount: 1733.7182599466735
+Amount: 1810.6967982237938
 Curtailment in t: 16 and node: n7786
-Amount: 1361.8608654771342
+Amount: 1361.8608654771363
 Curtailment in t: 17 and node: n7786
-Amount: 840.764459987261
+Amount: 840.7644599872638
 Curtailment in t: 18 and node: n7786
 Amount: 374.6595575713176
 Curtailment in t: 19 and node: n7786
-Amount: 57.90448280496783
+Amount: 57.904482804967834
 Curtailment in t: 23 and node: n7786
-Amount: 69.66167960849624
+Amount: 69.66167960849621
 Curtailment in t: 24 and node: n7786
-Amount: 183.03797762931765
+Amount: 183.03797762931808
 Curtailment in t: 25 and node: n7786
-Amount: 107.33327144377395
-Curtailment in t: 26 and node: n7786
-Amount: 0.14394868720164125
+Amount: 107.3332714437738
+Curtailment in t: 128 and node: n7786
+Amount: 297.0706897171298
+Curtailment in t: 129 and node: n7786
+Amount: 624.3098031934787
+Curtailment in t: 130 and node: n7786
+Amount: 1022.5883060293174
+Curtailment in t: 131 and node: n7786
+Amount: 1375.9317460964153
+Curtailment in t: 132 and node: n7786
+Amount: 1602.7636511294627
+Curtailment in t: 133 and node: n7786
+Amount: 1746.4774562957448
+Curtailment in t: 134 and node: n7786
+Amount: 1645.6777433034226
+Curtailment in t: 135 and node: n7786
+Amount: 1367.9604568361256
+Curtailment in t: 136 and node: n7786
+Amount: 1044.3412592040552
+Curtailment in t: 137 and node: n7786
+Amount: 647.1005729949067
+Curtailment in t: 138 and node: n7786
+Amount: 282.1664195429383
+Curtailment in t: 224 and node: n7786
+Amount: 289.3005134693553
+Curtailment in t: 225 and node: n7786
+Amount: 813.0713868871765
+Curtailment in t: 226 and node: n7786
+Amount: 1035.0758900519147
+Curtailment in t: 227 and node: n7786
+Amount: 1428.5674270901118
+Curtailment in t: 228 and node: n7786
+Amount: 1604.7505095711936
+Curtailment in t: 229 and node: n7786
+Amount: 1831.486950956948
+Curtailment in t: 230 and node: n7786
+Amount: 1744.976522138931
+Curtailment in t: 231 and node: n7786
+Amount: 1631.7597107924148
+Curtailment in t: 232 and node: n7786
+Amount: 1229.744253486002
+Curtailment in t: 233 and node: n7786
+Amount: 928.0932052026424
+Curtailment in t: 234 and node: n7786
+Amount: 566.2344721520568
+Curtailment in t: 235 and node: n7786
+Amount: 268.4843480099843
+Curtailment in t: 240 and node: n7786
+Amount: 236.81634681233047
+Curtailment in t: 241 and node: n7786
+Amount: 162.72618681614256
 Curtailment in t: 9 and node: n7872
-Amount: 112.63196229304391
+Amount: 112.63196229303699
 Curtailment in t: 10 and node: n7872
-Amount: 465.13522129918715
+Amount: 465.13522129918806
 Curtailment in t: 11 and node: n7872
-Amount: 518.0527487343924
+Amount: 640.1557376718081
 Curtailment in t: 12 and node: n7872
-Amount: 704.9083425802414
+Amount: 704.9083425802392
 Curtailment in t: 13 and node: n7872
-Amount: 738.1537855683433
+Amount: 738.1537855683379
 Curtailment in t: 14 and node: n7872
-Amount: 577.6231201306722
+Amount: 629.5703324799847
 Curtailment in t: 15 and node: n7872
-Amount: 430.5692559001543
+Amount: 549.2923605794024
 Curtailment in t: 16 and node: n7872
-Amount: 12.331089996465465
+Amount: 12.331089996460015
+Curtailment in t: 131 and node: n7872
+Amount: 224.85801751901028
+Curtailment in t: 132 and node: n7872
+Amount: 485.2383777803776
+Curtailment in t: 133 and node: n7872
+Amount: 672.8434154206586
+Curtailment in t: 134 and node: n7872
+Amount: 536.5935770752887
+Curtailment in t: 135 and node: n7872
+Amount: 161.75853001790048
+Curtailment in t: 226 and node: n7872
+Amount: 88.87712563932682
+Curtailment in t: 227 and node: n7872
+Amount: 439.57107850653153
+Curtailment in t: 228 and node: n7872
+Amount: 586.3628481159082
+Curtailment in t: 229 and node: n7872
+Amount: 807.7651247361301
+Curtailment in t: 230 and node: n7872
+Amount: 660.9921874152449
+Curtailment in t: 231 and node: n7872
+Amount: 492.6801646469826
+Curtailment in t: 85 and node: n7910
+Amount: 14.690177249207068
+Curtailment in t: 107 and node: n7910
+Amount: 46.640479154212244
+Curtailment in t: 108 and node: n7910
+Amount: 126.49240336628239
+Curtailment in t: 109 and node: n7910
+Amount: 101.46203277137373
+Curtailment in t: 204 and node: n7910
+Amount: 14.135309433283709
+Curtailment in t: 107 and node: n7984
+Amount: 30.766023338218957
+Curtailment in t: 108 and node: n7984
+Amount: 52.12518249693531
+Curtailment in t: 109 and node: n7984
+Amount: 6.362227301042935
+Curtailment in t: 5 and node: n7989
+Amount: 75.18546483008494
+Curtailment in t: 6 and node: n7989
+Amount: 181.27756674728798
+Curtailment in t: 7 and node: n7989
+Amount: 300.0909233338324
+Curtailment in t: 8 and node: n7989
+Amount: 269.0066148616333
+Curtailment in t: 9 and node: n7989
+Amount: 238.81237271802325
+Curtailment in t: 10 and node: n7989
+Amount: 238.35621250643564
+Curtailment in t: 11 and node: n7989
+Amount: 233.5159395906949
+Curtailment in t: 12 and node: n7989
+Amount: 281.6293110406432
+Curtailment in t: 13 and node: n7989
+Amount: 275.571487166838
+Curtailment in t: 14 and node: n7989
+Amount: 271.009541487739
+Curtailment in t: 15 and node: n7989
+Amount: 177.56968046778132
+Curtailment in t: 16 and node: n7989
+Amount: 209.6377903260306
+Curtailment in t: 17 and node: n7989
+Amount: 254.8763284676599
 Curtailment in t: 18 and node: n7989
-Amount: 61.22327572717281
-	No curtailment found...
-
+Amount: 61.22327572717239
+Curtailment in t: 130 and node: n7989
+Amount: 17.04360318567892
+Curtailment in t: 131 and node: n7989
+Amount: 54.9248901795534
+Curtailment in t: 132 and node: n7989
+Amount: 58.382606317202914
+Curtailment in t: 133 and node: n7989
+Amount: 13.560097923835329
+Curtailment in t: 134 and node: n7989
+Amount: 46.379119114877966
+Curtailment in t: 135 and node: n7989
+Amount: 78.77764648374058
+Curtailment in t: 136 and node: n7989
+Amount: 69.5140731083718
+Curtailment in t: 137 and node: n7989
+Amount: 43.764404282651114
+Curtailment in t: 230 and node: n7989
+Amount: 13.352316008558716
+Curtailment in t: 231 and node: n7989
+Amount: 61.01894394013266
+Curtailment in t: 232 and node: n7989
+Amount: 146.03732135750238
+Curtailment in t: 233 and node: n7989
+Amount: 55.04887746912338
+Curtailment in t: 234 and node: n7989
+Amount: 3.412045995788745
+Curtailment in t: 6 and node: n8043
+Amount: 183.19004275424112
+Curtailment in t: 133 and node: n8043
+Amount: 351.3026296716659
+Curtailment in t: 107 and node: n8045
+Amount: 28.852626139864185
+Curtailment in t: 108 and node: n8045
+Amount: 40.71223154167694
+Curtailment in t: 109 and node: n8045
+Amount: 11.180484164022687
+Curtailment in t: 12 and node: n8060
+Amount: 24.320473818751253
+Curtailment in t: 13 and node: n8060
+Amount: 15.160659652341337
 --> Exporting price file...
 
 --> Generating consumption dataframe...
@@ -466,11 +842,11 @@ Amount: 61.22327572717281
 
 --> Calculating price...
 
-	Minium price = -4.796163466380676e-13 in timestep: 7 and node: n5695
+	Minium price = -3.1725733151688473e-12 in timestep: 108 and node: n5579
 
-	Maximum price = 117.15682381136726 in timestep: 19 and node: n4659
+	Maximum price = 123.0289191656167 in timestep: 138 and node: n4659
 
-	Average price = 26.797520251148203
+	Average price = 29.119567158178306
 
 --> Exporting price file...
 

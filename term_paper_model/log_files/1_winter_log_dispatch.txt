@@ -1,4 +1,4 @@
-Timestamp: 28.09.2020 21:00
+Timestamp: 29.09.2020 22:17
 
 ##############################################################
 
@@ -10,7 +10,7 @@ Results for model: Dispatch without nuclear - Period: 1_winter_
 --------------------------------------------------------------
 --------------------------------------------------------------
 
-Cost of generation: 8.827208803521049e7
+Cost of generation: 4.1380683579881805e8
 
 --> Generating generation dataframe...
 
@@ -28,11 +28,11 @@ Cost of generation: 8.827208803521049e7
 
 --> Calculating price...
 
-	Minium price = 42.84273223324446 in timestep: 2
+	Minium price = 40.118847253863066 in timestep: 157
 
-	Maximum price = 66.18766052002978 in timestep: 32
+	Maximum price = 69.27438269553012 in timestep: 209
 
-	Average price = 55.18570911927199
+	Average price = 52.89934159660693
 
 --> Exporting price file...
 

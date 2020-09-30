@@ -1,4 +1,4 @@
-Timestamp: 28.09.2020 21:11
+Timestamp: 30.09.2020 09:37
 
 ##############################################################
 
@@ -10,7 +10,7 @@ Results for model: DC Load Flow without nuclear - Period: 1_winter_
 --------------------------------------------------------------
 --------------------------------------------------------------
 
-Cost of generation: 9.45363750229899e7
+Cost of generation: 4.399370049972645e8
 
 --> Generating generation dataframe...
 
@@ -19,11 +19,43 @@ Cost of generation: 9.45363750229899e7
 --> Calculating curtailment...
 
 Curtailment in t: 17 and node: n4650
-Amount: 117.20045165389921
+Amount: 117.2004516538991
 Curtailment in t: 18 and node: n4650
 Amount: 128.20683156111062
-	No curtailment found...
-
+Curtailment in t: 56 and node: n4650
+Amount: 661.7838682445752
+Curtailment in t: 89 and node: n4650
+Amount: 203.73245676770364
+Curtailment in t: 90 and node: n4650
+Amount: 153.71318036815873
+Curtailment in t: 185 and node: n4650
+Amount: 572.5162473568441
+Curtailment in t: 186 and node: n4650
+Amount: 523.3389746834893
+Curtailment in t: 199 and node: n4650
+Amount: 245.5646102608249
+Curtailment in t: 200 and node: n4650
+Amount: 1146.2274145543026
+Curtailment in t: 201 and node: n4650
+Amount: 395.55913915417284
+Curtailment in t: 202 and node: n4650
+Amount: 247.5909332164446
+Curtailment in t: 203 and node: n4650
+Amount: 236.56194057460016
+Curtailment in t: 209 and node: n4650
+Amount: 1145.9217088339976
+Curtailment in t: 210 and node: n4650
+Amount: 457.519519052643
+Curtailment in t: 223 and node: n4650
+Amount: 563.2094975622513
+Curtailment in t: 224 and node: n4650
+Amount: 1497.587374457102
+Curtailment in t: 225 and node: n4650
+Amount: 756.7673149400625
+Curtailment in t: 233 and node: n4650
+Amount: 612.3460387492829
+Curtailment in t: 234 and node: n4650
+Amount: 529.59493474342
 --> Exporting price file...
 
 --> Generating consumption dataframe...
@@ -36,9 +68,9 @@ Amount: 128.20683156111062
 
 	Minium price = 0.0 in timestep: 17 and node: n4650
 
-	Maximum price = 321.83921654750475 in timestep: 17 and node: n4659
+	Maximum price = 523.3587867925355 in timestep: 224 and node: n4659
 
-	Average price = 60.316417151579486
+	Average price = 58.42548428813685
 
 --> Exporting price file...
 
