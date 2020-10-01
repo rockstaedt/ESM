@@ -1,3 +1,9 @@
 # Impact of the Nuclear phase-out on the German Electricity System
 
-## Techno-economic analysis on changes in grid and market results
+The German electricity system has been undergoing an extensive transformation in the last two decades. Next to the introduction of renewable energies into the system, the decision to end the use of nuclear energy and the consequent stepwise shut down of these plants by 2022, pose a complex challenge. As the remaining nuclear plants still account for a large part of electricity generated, and Renewable Energy (RE) infeed is hard to predict, it is not clear how the electricity transmission network itself will cope with these challenges in the future. Likewise it would be interesting to study the effect of nuclear phase out on electricity markets.
+To examine these questions a two-fold modeling approach is proposed in this paper. To model the phase out effects on markets, a single zone, i.e. ”copperplate”, dispatch model was built in the Julia language, and to model the effects on the transmission grid, this model was extended to a direct current load flow model. These models were used to simulate scenarios before and after nuclear phase out.
+The results show that the transmission system remains stable after phase out. Shutting down the nuclear plants though is accompanied by a significant cost increase. Nuclear energy generation is replaced by conventional, more expansive generation and not by renewable generation. Renewable energy generation does not benefit from phase out, as it remains constrained by the grid.
+
+Inside this repository you will find our model, written in Julia and using the Gurobi solver, as well as our Python scripts for analyzing and preprocessing the dataset and plotting the results. 
+
+The original dataset is too big to store it in the repository. Therefore, there is just the preprocessed data. If you would like to have the original dataset, please request it by mail. 
